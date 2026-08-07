@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yoho Jewelry</title>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDE4MDAgOTU0Ij4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCw5NTQpIHNjYWxlKDAuMSwtMC4xKSIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSJub25lIj4KPHBhdGggZD0iTTI2MDAgNzM5MCBjLTMxNiAtNSAtMzMwIC03IC0zOTIgLTUxIC0zMyAtMjQgLTc2IC04OCAtODkgLTEzMyAtMTQKLTQ2IC0xMSAtMjI0MSAyIC0yMjkwIDE0IC01MCAxMDIgLTE0MCAxNTUgLTE1NyAzMSAtMTEgMjYxIC0xNSAxMDY5IC0xOSAxMDA5Ci02IDEwMzEgLTcgMTEwMSAtMjcgODkgLTI3IDE1OCAtNTAgMTgxIC02MiA0NyAtMjMgMTEwIC01NiAxMjggLTY1IDQ4IC0yNwoxNzUgLTEyOSAyMjYgLTE4MiAxNDIgLTE1MCAyMTYgLTI4NSAyNzEgLTQ5MyAzOSAtMTQ5IDI1IC00MjMgLTI4IC01NDkgLTgKLTE4IC0xNCAtMzkgLTE0IC00NyAwIC0yMCAtNjggLTE1MSAtMTE1IC0yMjMgLTY4IC0xMDEgLTE4MyAtMjE1IC0yOTEgLTI4OAotMjY2IC0xNzcgLTU5OCAtMjIxIC05MTUgLTEyMCAtMjYgOCAtNTUgMTkgLTY1IDI0IC0xMSA1IC0zOSAyMCAtNjQgMzIgLTE0NQo3MyAtMzEyIDIyMCAtMzk4IDM1MCAtNzMgMTA4IC0xNDQgMjY3IC0xNjMgMzYwIC00IDI1IC0xMyA2MyAtMTggODUgLTYgMjIKLTExIDEzMiAtMTEgMjQ0IDAgMjQ1IC04IDI3OCAtODYgMzU2IC04MCA4MSAtMTAxIDg1IC00NDkgODUgLTI0MyAwIC0zMDEgLTMKLTM0MyAtMTYgLTYwIC0yMCAtMTE0IC02MSAtMTUwIC0xMTggbC0yNyAtNDEgMCAtODkwIDAgLTg5MCAyNyAtNDEgYzM3IC01OAo4OSAtOTcgMTUxIC0xMTcgNTAgLTE2IDMwMiAtMTcgMzUyNSAtMTcgMzQ1MSAwIDM0NzIgMCAzNTI1IDIwIDk5IDM3IDE1OSAxMTMKMTc3IDIyNiA2IDMzIDEwIDI2MSAxMCA1MDggMCA0NzYgLTEgNDY2IDUwIDYzMSA2MCAxOTcgMjE3IDQwOSA0MDMgNTQ0IDY5IDUxCjI0NCAxNDEgMjczIDE0MSA4IDAgMjQgNSAzNSAxMSAzMyAxNyAxOTkgNDEgMjg5IDQwIDExNSAwIDI4NSAtMzIgMzc1IC03MAoyMDMgLTg3IDM1MiAtMTk5IDQ2NSAtMzUxIDU4IC03OSAxMzcgLTIyMiAxNTEgLTI3NCA1IC0xNyAyMCAtNzQgMzMgLTEyNiBsMjUKLTk1IDEgLTQ4MyBjMCAtNDU2IDEgLTQ4NiAyMCAtNTQwIDI2IC03NSA4OCAtMTM2IDE2NiAtMTYyIDU2IC0yMCA5NSAtMjAKMTk0MCAtMjAgMTcxMCAwIDE4ODggMSAxOTMxIDE2IDYzIDIyIDExNSA2MyAxNTAgMTIyIGwyOCA0NyAwIDI0NzIgMCAyNDcyCi00MSA1NyBjLTMwIDQzIC01NSA2NSAtOTYgODYgbC01NSAyOCAtMTkxNyAwIC0xOTE3IDAgLTU0IC0yNiBjLTY1IC0zMCAtMTA1Ci03NiAtMTM0IC0xNTEgLTIwIC01MyAtMjEgLTcyIC0yMSAtNTE3IDAgLTQxNSAtMiAtNDcyIC0xOSAtNTUzIC0xMCAtNDkgLTI0Ci05OSAtMzAgLTExMSAtNiAtMTEgLTExIC0yOCAtMTEgLTM3IDAgLTIzIC03OSAtMTgwIC0xMjYgLTI1MiAtNTUgLTgyIC0xNjYKLTE5NiAtMjU2IC0yNjQgLTI1NSAtMTkwIC02MDMgLTI1NCAtODg5IC0xNjQgLTI2IDggLTUyIDE1IC01OSAxNSAtMjMgMCAtMjAzCjkzIC0yNjkgMTM4IC0xNjcgMTE2IC0zMjQgMzIyIC0zODYgNTA3IC01MCAxNDUgLTQ4IDEyNCAtNTQgNjc1IC03IDU3MiAtNgo1NTkgLTY3IDYzOSAtMzYgNDcgLTY4IDcwIC0xMjQgOTAgLTQ4IDE2IC0zODMxIDE2IC0zODgyIC0xIC00NSAtMTUgLTExMSAtNjYKLTEzNCAtMTAzIC00MSAtNjggLTQyIC04NSAtNDcgLTU5MCAtNCAtNTIzIC0yIC00OTAgLTU3IC02NzAgLTgxIC0yNjUgLTI5MwotNTEwIC01NDUgLTYzMyAtMjk5IC0xNDUgLTYyNSAtMTQxIC05MzAgMTAgLTE0MyA3MSAtMjY4IDE3NiAtMzY1IDMwOSAtODEKMTEwIC0xMjQgMTkwIC0xNTkgMjk3IC01MCAxNTIgLTUxIDE3MSAtNTEgNjc2IDAgNDUxIC0xIDQ4MCAtMjAgNTMzIC0xMSAzMgotMzMgNzMgLTQ4IDkzIC0zMSAzNyAtMTE4IDg1IC0xNjcgOTEgLTE2IDIgLTE2NyAyIC0zMzUgLTF6IG00OTg2IC01NDkgYzEzNwotMjkgMTkyIC00NyAyODkgLTk3IDIyNCAtMTE0IDQwOCAtMzA5IDQ5NSAtNTI2IDg2IC0yMTEgODAgLTEwMiA4MCAtMTQ3MiAwCi0xMTYzIC0xIC0xMjE4IC0xOSAtMTI5MyAtMjEgLTg2IC0zNiAtMTMzIC01NiAtMTc4IC04IC0xNiAtMTYgLTM3IC0xOSAtNDUKLTMgLTggLTEyIC0yNCAtMTggLTM1IC03IC0xMSAtMzYgLTU2IC02NCAtMTAwIC04NSAtMTMzIC0yNDUgLTI3NiAtMzg5IC0zNDcKLTExMyAtNTYgLTE2NiAtNzUgLTI4MCAtMTAwIC04MSAtMTggLTMzMyAtMTcgLTQxMCAxIC02NiAxNSAtMTY3IDQ3IC0xOTMgNjAKLTkgNSAtNDIgMjEgLTcyIDM2IC0xNjIgNzkgLTMyNCAyMzUgLTQzNyA0MjAgLTI1IDQxIC03MiAxNDYgLTkzIDIwNSAtNDUgMTMzCi00MyA4NCAtNDcgMTM1MCAtNCAxMjk3IC03IDEyMjIgNDkgMTM5NSAxNyA1MiA4NiAyMDIgMTIxIDI2MCAyNyA0NSAxMjggMTY0CjE4MCAyMTEgMjM3IDIxNyA1ODYgMzE4IDg4MyAyNTV6IG02MzU5IC0xIGMxMjAgLTI1IDE3MyAtNDMgMjc1IC05MSAyOTEgLTE0MQo1MDAgLTQxNSA1NzAgLTc0OCAxOSAtOTEgMjAgLTEzNyAyMCAtMTI1NSAwIC0xMDI3IC0yIC0xMTcxIC0xNiAtMTI0NiAtOSAtNDcKLTIyIC0xMDAgLTMwIC0xMTggLTggLTE4IC0xNCAtNDAgLTE0IC00OCAwIC05IC02IC0yOCAtMTQgLTQyIC03IC0xNSAtMjIgLTQ1Ci0zMiAtNjcgLTY1IC0xMzkgLTIxOSAtMzIwIC0zNDYgLTQwNiAtMTgzIC0xMjUgLTM4OCAtMTg5IC02MDMgLTE4OSAtMTUyIDAKLTI2OSAyNSAtNDM1IDk0IC0zOSAxNiAtMTMxIDczIC0xOTAgMTE3IC0xMjkgOTYgLTIyOSAyMTcgLTMwNyAzNjkgLTQ5IDk2Ci01NiAxMTQgLTk2IDI1MCBsLTIyIDc1IDAgMTIxMCBjMCAxMTAyIDEgMTIxNCAxNyAxMjYwIDkgMjggMTkgNjEgMjEgNzUgMjQKMTE2IDEyNyAzMDAgMjQ1IDQzOCAzNSA0MCAxNzQgMTYyIDE4NiAxNjIgMyAwIDIyIDEyIDQzIDI2IDE4NyAxMjcgNDkzIDE4NAo3MjggMTM0eiIvPgo8L2c+Cjwvc3ZnPg==">
+  <meta property="og:title" content="Yoho Jewelry">
+  <meta property="og:description" content="Brooklyn based metalsmith &amp; jeweler, working primarily in gold, platinum.">
+  <meta property="og:image" content="https://yoho.jewelry/preview.PNG">
+  <meta property="og:url" content="https://yoho.jewelry">
+  <meta property="og:type" content="website">
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    a { color: #0055bb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:visited { color: #0055bb; }
+
+    #skip { position: absolute; left: -9999px; }
+    #skip:focus { left: 0; }
+
+    main {
+      max-width: 640px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    .logo {
+      height: 35px;
+      width: auto;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 2rem 0 0.4rem;
+    }
+
+    p { margin: 0.4rem 0 0.8rem; }
+
+    .tagline { color: #555; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .links-inline { font-size: 0.9rem; margin-bottom: 0.6rem; color: #444; }
+    .sub-links { font-size: 0.9rem; margin-bottom: 1.2rem; }
+
+    ul.posts { list-style: none; padding: 0; margin: 0.4rem 0 0.8rem; }
+    ul.posts li { font-size: 0.92rem; padding: 0.15rem 0; }
+    ul.posts li span { color: #888; margin-right: 0.6rem; font-variant-numeric: tabular-nums; }
+
+    ul.elsewhere { list-style: none; padding: 0; margin: 0.4rem 0 0.8rem; }
+    ul.elsewhere li { font-size: 0.92rem; padding: 0.15rem 0; }
+
+    ul.shop { list-style: none; padding: 0; margin: 0.4rem 0 0.8rem; }
+    ul.shop li {
+      font-size: 0.92rem;
+      padding: 0.25rem 0;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    ul.shop li .checkout-container { width: 100%; margin-top: 0.5rem; }
+    ul.shop li .price {
+      color: #888;
+      font-variant-numeric: tabular-nums;
+      min-width: 4rem;
+      flex-shrink: 0;
+    }
+    ul.shop li .item-name { flex: 1; }
+    ul.shop li .metal { color: #888; font-style: italic; font-size: 0.85rem; flex-shrink: 0; }
+    ul.shop li .order-area { display: flex; gap: 0.3rem; flex-shrink: 0; }
+    .order-btn {
+      font-family: inherit;
+      font-size: 0.78rem;
+      color: #0055bb;
+      background: none;
+      border: 1px solid #0055bb;
+      padding: 1px 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .order-btn:hover { background: #0055bb; color: #fff; }
+    .order-btn:disabled {
+      color: #aaa;
+      border-color: #aaa;
+      cursor: default;
+    }
+    .order-btn:disabled:hover { background: none; color: #aaa; }
+
+    ul.cart { list-style: none; padding: 0; margin: 0.4rem 0 0; }
+    ul.cart li {
+      font-size: 0.92rem;
+      padding: 0.25rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    ul.cart li .cart-qty {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      flex-shrink: 0;
+      min-width: 4rem;
+    }
+    ul.cart li .qty-btn {
+      font-family: inherit;
+      font-size: 0.78rem;
+      color: #888;
+      background: none;
+      border: none;
+      padding: 0 2px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    ul.cart li .qty-btn:hover { color: #1a1a1a; }
+    ul.cart li .cart-name { flex: 1; }
+    ul.cart li .cart-price {
+      color: #888;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+    .cart-rule { border: none; border-top: 1px solid #ddd; margin: 0.4rem 0; }
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.92rem;
+      padding: 0.1rem 0 0.6rem;
+    }
+    .cart-total-row span:last-child { color: #888; font-variant-numeric: tabular-nums; }
+    .checkout-btn { font-size: 0.85rem; padding: 3px 14px; cursor: pointer; }
+
+    .carousel {
+      width: 50%;
+      margin: 0.5rem 0 0.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 480px) {
+      .carousel { width: 100%; }
+    }
+    .carousel img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+    .carousel-nav button {
+      font-family: inherit;
+      font-size: 0.78rem;
+      color: #0055bb;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .carousel-nav button:disabled { color: #ccc; cursor: default; }
+    .carousel-nav .carousel-count { font-size: 0.78rem; color: #888; }
+    ul.posts li { position: relative; flex-wrap: wrap; display: flex; align-items: baseline; }
+    ul.posts li .post-carousel,
+    ul.shop li .post-carousel { width: 100%; }
+    ul.posts li > span:first-child { flex-shrink: 0; }
+    ul.posts li .post-label { flex: 1; min-width: 0; }
+    .post-label { cursor: pointer; }
+    @media (hover: hover) {
+      .post-label:hover { text-decoration: underline; }
+    }
+    .post-label.carousel-active { text-decoration: underline; }
+
+.all-link { font-size: 0.9rem; display: inline-block; margin-bottom: 1rem; }
+
+    footer {
+      max-width: 640px;
+      margin: 3rem auto 2rem;
+      padding: 0.75rem 1rem 0;
+      border-top: 1px solid #aaa;
+      font-size: 0.82rem;
+      color: #666;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    footer a { color: #666; }
+  </style>
+</head>
+<body>
+
+<a id="skip" href="#main-content">Skip to content</a>
+
+<main id="main-content">
+
+  <svg class="logo" version="1.0" xmlns="http://www.w3.org/2000/svg"
+   width="1376.000000pt" height="531.000000pt" viewBox="211 214 1376 531"
+   preserveAspectRatio="xMidYMid meet" aria-label="Yoho Jewelry">
+  <g transform="translate(0.000000,954.000000) scale(0.100000,-0.100000)"
+  fill="#000000" stroke="none">
+  <path d="M2600 7390 c-316 -5 -330 -7 -392 -51 -33 -24 -76 -88 -89 -133 -14
+  -46 -11 -2241 2 -2290 14 -50 102 -140 155 -157 31 -11 261 -15 1069 -19 1009
+  -6 1031 -7 1101 -27 89 -27 158 -50 181 -62 47 -23 110 -56 128 -65 48 -27
+  175 -129 226 -182 142 -150 216 -285 271 -493 39 -149 25 -423 -28 -549 -8
+  -18 -14 -39 -14 -47 0 -20 -68 -151 -115 -223 -68 -101 -183 -215 -291 -288
+  -266 -177 -598 -221 -915 -120 -26 8 -55 19 -65 24 -11 5 -39 20 -64 32 -145
+  73 -312 220 -398 350 -73 108 -144 267 -163 360 -4 25 -13 63 -18 85 -6 22
+  -11 132 -11 244 0 245 -8 278 -86 356 -80 81 -101 85 -449 85 -243 0 -301 -3
+  -343 -16 -60 -20 -114 -61 -150 -118 l-27 -41 0 -890 0 -890 27 -41 c37 -58
+  89 -97 151 -117 50 -16 302 -17 3525 -17 3451 0 3472 0 3525 20 99 37 159 113
+  177 226 6 33 10 261 10 508 0 476 -1 466 50 631 60 197 217 409 403 544 69 51
+  244 141 273 141 8 0 24 5 35 11 33 17 199 41 289 40 115 0 285 -32 375 -70
+  203 -87 352 -199 465 -351 58 -79 137 -222 151 -274 5 -17 20 -74 33 -126 l25
+  -95 1 -483 c0 -456 1 -486 20 -540 26 -75 88 -136 166 -162 56 -20 95 -20
+  1940 -20 1710 0 1888 1 1931 16 63 22 115 63 150 122 l28 47 0 2472 0 2472
+  -41 57 c-30 43 -55 65 -96 86 l-55 28 -1917 0 -1917 0 -54 -26 c-65 -30 -105
+  -76 -134 -151 -20 -53 -21 -72 -21 -517 0 -415 -2 -472 -19 -553 -10 -49 -24
+  -99 -30 -111 -6 -11 -11 -28 -11 -37 0 -23 -79 -180 -126 -252 -55 -82 -166
+  -196 -256 -264 -255 -190 -603 -254 -889 -164 -26 8 -52 15 -59 15 -23 0 -203
+  93 -269 138 -167 116 -324 322 -386 507 -50 145 -48 124 -54 675 -7 572 -6
+  559 -67 639 -36 47 -68 70 -124 90 -48 16 -3831 16 -3882 -1 -45 -15 -111 -66
+  -134 -103 -41 -68 -42 -85 -47 -590 -4 -523 -2 -490 -57 -670 -81 -265 -293
+  -510 -545 -633 -299 -145 -625 -141 -930 10 -143 71 -268 176 -365 309 -81
+  110 -124 190 -159 297 -50 152 -51 171 -51 676 0 451 -1 480 -20 533 -11 32
+  -33 73 -48 93 -31 37 -118 85 -167 91 -16 2 -167 2 -335 -1z m4986 -549 c137
+  -29 192 -47 289 -97 224 -114 408 -309 495 -526 86 -211 80 -102 80 -1472 0
+  -1163 -1 -1218 -19 -1293 -21 -86 -36 -133 -56 -178 -8 -16 -16 -37 -19 -45
+  -3 -8 -12 -24 -18 -35 -7 -11 -36 -56 -64 -100 -85 -133 -245 -276 -389 -347
+  -113 -56 -166 -75 -280 -100 -81 -18 -333 -17 -410 1 -66 15 -167 47 -193 60
+  -9 5 -42 21 -72 36 -162 79 -324 235 -437 420 -25 41 -72 146 -93 205 -45 133
+  -43 84 -47 1350 -4 1297 -7 1222 49 1395 17 52 86 202 121 260 27 45 128 164
+  180 211 237 217 586 318 883 255z m6359 -1 c120 -25 173 -43 275 -91 291 -141
+  500 -415 570 -748 19 -91 20 -137 20 -1255 0 -1027 -2 -1171 -16 -1246 -9 -47
+  -22 -100 -30 -118 -8 -18 -14 -40 -14 -48 0 -9 -6 -28 -14 -42 -7 -15 -22 -45
+  -32 -67 -65 -139 -219 -320 -346 -406 -183 -125 -388 -189 -603 -189 -152 0
+  -269 25 -435 94 -39 16 -131 73 -190 117 -129 96 -229 217 -307 369 -49 96
+  -56 114 -96 250 l-22 75 0 1210 c0 1102 1 1214 17 1260 9 28 19 61 21 75 24
+  116 127 300 245 438 35 40 174 162 186 162 3 0 22 12 43 26 187 127 493 184
+  728 134z"/>
+  </g>
+  </svg>
+
+  <p class="tagline">Handcrafted fine jewelry. <em>Brooklyn, NY.</em></p>
+
+  <p class="links-inline">Rings · Necklaces · Bespoke commissions</p>
+
+  <p>Alan is a Brooklyn based metalsmith &amp; jeweler, working primarily in silver, gold, platinum.</p>
+
+  <p class="sub-links">
+    <a href="#works">Previous Commissions</a> · <a href="#shop">Shop</a> · <a href="#contact">Contact</a>
+  </p>
+
+  <h2 id="works">Previous Commissions</h2>
+  <p>A selection of recent standout pieces. Click any to view photos.</p>
+
+  <ul class="posts" id="commissionsList"></ul>
+
+  <a class="all-link" href="https://instagram.com/alan.yo.ho" target="_blank" rel="noopener">All works on Instagram →</a>
+
+  <h2 id="shop">Shop</h2>
+  <p>Made-to-order pieces. Please allow 14 days for fabrication. Shipping included in price.</p>
+
+  <ul class="shop" id="shopList"></ul>
+
+  <div id="cartSection" style="display:none">
+    <h2 id="cart">Cart</h2>
+    <ul class="cart" id="cartList"></ul>
+    <div class="cart-footer">
+      <hr class="cart-rule">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotal"></span>
+      </div>
+      <button class="order-btn checkout-btn" id="checkoutBtn">Checkout</button>
+    </div>
+    <div id="checkoutContainer"></div>
+  </div>
+
+  <h2 id="contact">Contact</h2>
+  <p>Commissions, inquiries welcome. For customs, I only work in gold, platinum. Additionally, a 3mo. lead time and $500 deposit is required. If you'd like a replica of a prior piece, the timeline can be accelerated to 1/2 of that. I always check my email, I rarely check DM requests :~)</p>
+
+  <ul class="elsewhere">
+    <li>Email: <a href="mailto:alan@yoho.jewelry">alan@yoho.jewelry</a></li>
+    <li>Location: Brooklyn, NY</li>
+  </ul>
+
+</main>
+
+<footer>
+  <span>© 2026 Yoho Jewelry</span>
+  <span><a href="https://instagram.com/alan.yo.ho" target="_blank" rel="noopener">Instagram</a></span>
+</footer>
+
+<script>
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // COMMISSIONS — edit this list to update
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  var commissions = [
+    { year: "2026", text: "set: platinum & 18k gold wedding bands, inlaid sapphires & diamonds", images: "/images/commissions/platinum-18k-gold-wedding-bands-sapphires-diamonds/", count: 3 },
+    { year: "2026", text: "set: teardrop pendants with trillion cut diamonds (sterling silver, 18k gold)", images: "/images/commissions/teardrop-pendants-trillion-cut-diamonds/", count: 2 },
+    { year: "2026", text: "18k emerald signet ring", images: "/images/commissions/emerald-signet-ring/", count: 2 },
+    { year: "2026", text: 'platinum “wave” ring', images: "/images/commissions/platinum-wave-ring/", count: 2 },
+    { year: "2026", text: 'set: 18k “frog” ring & 18k “panels” ring', images: "/images/commissions/frog-ring-panels-ring/", count: 4 },
+    { year: "2025", text: "18k grey gold signet ring", images: "/images/commissions/18k-grey-gold-signet-ring/", count: 4 },
+    { year: "2025", text: "chunky platinum engagement ring", images: "/images/commissions/chunky-platinum-engagement-ring/", count: 3 },
+    { year: "2025", text: "set: platinum & 20k gold wedding bands, inlaid diamonds", images: "/images/commissions/platinum-20k-gold-wedding-bands-diamonds/", count: 4 },
+    { year: "2025", text: "platinum floral engagement ring", images: "/images/commissions/platinum-floral-engagement-ring/", count: 4 },
+    { year: "2024", text: "platinum cigar band with diamonds, peridots", images: "/images/commissions/platinum-cigar-band-diamonds-peridots/", count: 4 },
+  ];
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // SHOP — edit this list to update the shop
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // metal options: "sterling silver" | "fine silver" | "18k white gold" | "18k grey gold" | "platinum"
+  // type options: "BRACELET" | "NECKLACE" (omit for no size options)
+  const STRIPE_PK = 'pk_live_51Tf0LwLbYgXhHZFTYDZzwsytTE7f50P3gT1a4YRAmPlOoFJI8VYtZoZ9THKUZ69nR89OM5Is4Fbk6fAKELf4DcwE008pWzakxc';
+  const stripe = Stripe(STRIPE_PK);
+  var shopItems = [
+    { price: "$1000", unitPrice: 1000, name: "noah bracelet", type: "BRACELET", metal: "sterling silver",
+      stripePriceId: "price_1Tf0auLbYgXhHZFTaIvTNSc7",
+      images: "/images/shop/noah-bracelet/", count: 2 },
+    { price: "$1000", unitPrice: 1000, name: "mane necklace", type: "NECKLACE", metal: "sterling silver",
+      stripePriceId: "price_1TgF0yLbYgXhHZFTyWIeWoTT",
+      images: "/images/shop/mane-necklace/", count: 0 },
+  ];
+
+  const SIZE_OPTIONS = {
+    BRACELET: ['5"', '5.5"', '6"', '6.5"', '7"'],
+    NECKLACE: ['15"', '16"', '17"', '18"'],
+  };
+
+
+  // ── Carousel ──────────────────────────
+  var activeCarouselEl = null;
+  var activeLabelEl = null;
+
+  function closeActiveCarousel() {
+    if (activeCarouselEl) {
+      activeCarouselEl.innerHTML = '';
+      activeCarouselEl = null;
+    }
+    if (activeLabelEl) {
+      activeLabelEl.classList.remove('carousel-active');
+      activeLabelEl = null;
+    }
+  }
+
+  function openCarousel(containerEl, imageDir, count, labelEl) {
+    if (activeCarouselEl === containerEl) {
+      closeActiveCarousel();
+      return;
+    }
+    closeActiveCarousel();
+    if (!count) return;
+
+    activeCarouselEl = containerEl;
+    activeLabelEl = labelEl || null;
+    if (activeLabelEl) activeLabelEl.classList.add('carousel-active');
+    var index = 0;
+    var direction = 1;
+
+    var carousel = document.createElement('div');
+    carousel.className = 'carousel';
+
+    var img = document.createElement('img');
+    img.src = imageDir + '1.jpg';
+    img.alt = '';
+    img.style.cursor = count > 1 ? 'pointer' : 'default';
+    img.addEventListener('click', function() {
+      if (count <= 1) return;
+      var next_index = index + direction;
+      if (next_index >= count) { direction = -1; next_index = index + direction; }
+      if (next_index < 0)      { direction =  1; next_index = index + direction; }
+      goTo(next_index);
+    });
+    carousel.appendChild(img);
+
+    var nav = document.createElement('div');
+    nav.className = 'carousel-nav';
+
+    var prev = document.createElement('button');
+    prev.textContent = '← prev';
+    prev.disabled = true;
+
+    var countLabel = document.createElement('span');
+    countLabel.className = 'carousel-count';
+    countLabel.textContent = '1 / ' + count;
+
+    var next = document.createElement('button');
+    next.textContent = 'next →';
+    next.disabled = count <= 1;
+
+    function goTo(i) {
+      index = i;
+      img.src = imageDir + (i + 1) + '.jpg';
+      countLabel.textContent = (i + 1) + ' / ' + count;
+      prev.disabled = i === 0;
+      next.disabled = i === count - 1;
+    }
+
+    prev.addEventListener('click', function() { if (index > 0) goTo(index - 1); });
+    next.addEventListener('click', function() { if (index < count - 1) goTo(index + 1); });
+
+    var touchStartX = 0;
+    carousel.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    carousel.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) {
+        if (dx < 0 && index < count - 1) goTo(index + 1);
+        if (dx > 0 && index > 0) goTo(index - 1);
+      }
+    }, { passive: true });
+
+    nav.appendChild(prev);
+    nav.appendChild(countLabel);
+    nav.appendChild(next);
+    carousel.appendChild(nav);
+    containerEl.appendChild(carousel);
+  }
+
+  // ── Commissions list ──────────────────
+  var commissionsList = document.getElementById('commissionsList');
+  commissions.forEach(function(item) {
+    var li = document.createElement('li');
+    var carouselContainer = document.createElement('div');
+    carouselContainer.className = 'post-carousel';
+
+    var label = document.createElement('span');
+    label.className = 'post-label';
+    label.textContent = item.text;
+    if (item.count) {
+      label.addEventListener('click', function() { openCarousel(carouselContainer, item.images, item.count, label); });
+    }
+
+    li.appendChild(document.createElement('span')).textContent = item.year;
+    li.querySelector('span').style.color = '#888';
+    li.querySelector('span').style.marginRight = '0.6rem';
+    li.querySelector('span').style.fontVariantNumeric = 'tabular-nums';
+    li.appendChild(label);
+    li.appendChild(carouselContainer);
+    commissionsList.appendChild(li);
+  });
+
+  // ── Cart ──────────────────────────────
+  var cart = [];
+  var activeCheckout = null;
+
+  function addToCart(item, size) {
+    var existing = cart.find(function(c) { return c.name === item.name && c.size === size; });
+    if (existing) { existing.quantity++; } else {
+      cart.push({ name: item.name, size: size, stripePriceId: item.stripePriceId, unitPrice: item.unitPrice, quantity: 1 });
+    }
+    renderCart();
+  }
+
+  function updateQty(index, delta) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) cart.splice(index, 1);
+    if (activeCheckout) { activeCheckout.destroy(); activeCheckout = null; document.getElementById('checkoutContainer').innerHTML = ''; }
+    renderCart();
+  }
+
+  function renderCart() {
+    var section = document.getElementById('cartSection');
+    if (cart.length === 0) { section.style.display = 'none'; return; }
+    section.style.display = '';
+    var list = document.getElementById('cartList');
+    list.innerHTML = '';
+    cart.forEach(function(cartItem, i) {
+      var li = document.createElement('li');
+      var subtotal = '$' + (cartItem.unitPrice * cartItem.quantity).toLocaleString();
+      li.innerHTML =
+        '<span class="cart-qty">' +
+          '<button class="qty-btn" onclick="updateQty(' + i + ',-1)">−</button>' +
+          cartItem.quantity +
+          '<button class="qty-btn" onclick="updateQty(' + i + ',1)">+</button>' +
+        '</span>' +
+        '<span class="cart-name">' + cartItem.name + ' <em>' + cartItem.size + '</em></span>' +
+        '<span class="cart-price">' + subtotal + '</span>';
+      list.appendChild(li);
+    });
+    var total = cart.reduce(function(sum, c) { return sum + c.unitPrice * c.quantity; }, 0);
+    document.getElementById('cartTotal').textContent = '$' + total.toLocaleString();
+  }
+
+  document.getElementById('checkoutBtn').addEventListener('click', async function() {
+    if (activeCheckout) { activeCheckout.destroy(); activeCheckout = null; }
+    var container = document.getElementById('checkoutContainer');
+    container.innerHTML = '';
+    var lineItems = cart.map(function(c) { return { priceId: c.stripePriceId, quantity: c.quantity, size: c.size, itemName: c.name }; });
+    var res = await fetch('/.netlify/functions/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lineItems: lineItems }),
+    });
+    var data = await res.json();
+    activeCheckout = await stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret });
+    activeCheckout.mount(container);
+  });
+
+  // ── Shop list ─────────────────────────
+  var shopList = document.getElementById('shopList');
+  shopItems.forEach(function(item) {
+    var li = document.createElement('li');
+    var sizes = item.type ? SIZE_OPTIONS[item.type] : null;
+    var orderArea = document.createElement('span');
+    orderArea.className = 'order-area';
+    var carouselContainer = document.createElement('div');
+    carouselContainer.className = 'post-carousel';
+
+    var nameEl;
+    if (item.count) {
+      nameEl = document.createElement('span');
+      nameEl.className = 'item-name post-label';
+      nameEl.textContent = item.name;
+      nameEl.addEventListener('click', function() { openCarousel(carouselContainer, item.images, item.count, nameEl); });
+    } else {
+      nameEl = document.createElement('span');
+      nameEl.className = 'item-name';
+      nameEl.textContent = item.name;
+    }
+
+    if (sizes) {
+      var revertTimer = null;
+
+      function showOrderBtn() {
+        clearTimeout(revertTimer);
+        orderArea.innerHTML = '';
+        var btn = document.createElement('button');
+        btn.className = 'order-btn';
+        btn.textContent = 'Order';
+        btn.addEventListener('click', showSizeBtns);
+        orderArea.appendChild(btn);
+      }
+
+      function showSizeBtns() {
+        clearTimeout(revertTimer);
+        orderArea.innerHTML = '';
+        sizes.forEach(function(size) {
+          var sizeBtn = document.createElement('button');
+          sizeBtn.className = 'order-btn';
+          sizeBtn.textContent = size;
+          sizeBtn.addEventListener('click', function() { addToCart(item, size); showOrderBtn(); });
+          orderArea.appendChild(sizeBtn);
+        });
+        revertTimer = setTimeout(showOrderBtn, 10000);
+      }
+
+      showOrderBtn();
+    } else {
+      var btn = document.createElement('button');
+      btn.className = 'order-btn';
+      btn.disabled = true;
+      btn.title = 'Coming soon';
+      btn.textContent = 'Order';
+      orderArea.appendChild(btn);
+    }
+
+    var priceEl = document.createElement('span');
+    priceEl.className = 'price';
+    priceEl.textContent = item.price;
+    li.appendChild(priceEl);
+    li.appendChild(nameEl);
+    if (item.metal) {
+      var metalEl = document.createElement('span');
+      metalEl.className = 'metal';
+      metalEl.textContent = item.metal;
+      li.appendChild(metalEl);
+    }
+    li.appendChild(orderArea);
+    li.appendChild(carouselContainer);
+    shopList.appendChild(li);
+  });
+  // ── Click particle effect ─────────────
+  document.addEventListener('click', function(e) {
+    var count = 12;
+    for (var i = 0; i < count; i++) {
+      var p = document.createElement('div');
+      var size = Math.random() * 2 + 1;
+      var angle = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+      var dist = Math.random() * 22 + 11;
+      var tx = Math.cos(angle) * dist;
+      var ty = Math.sin(angle) * dist;
+      p.style.cssText = [
+        'position:fixed',
+        'left:' + (e.clientX - size / 2) + 'px',
+        'top:' + (e.clientY - size / 2) + 'px',
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'background:#1a1a1a',
+        'border-radius:1px',
+        'pointer-events:none',
+        'z-index:9999',
+        'transition:transform 400ms ease-out, opacity 400ms ease-out',
+        'will-change:transform,opacity',
+      ].join(';');
+      document.body.appendChild(p);
+      requestAnimationFrame(function(el, x, y) {
+        return function() {
+          requestAnimationFrame(function() {
+            el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+            el.style.opacity = '0';
+          });
+        };
+      }(p, tx, ty));
+      setTimeout(function(el) { return function() { el.remove(); }; }(p), 420);
+    }
+  });
+</script>
+
+</body>
+</html>
