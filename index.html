@@ -508,7 +508,7 @@
     var container = document.getElementById('checkoutContainer');
     container.innerHTML = '';
     var lineItems = cart.map(function(c) { return { priceId: c.stripePriceId, quantity: c.quantity, size: c.size, itemName: c.name }; });
-    var res = await fetch('/.netlify/functions/create-checkout-session', {
+    var res = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ lineItems: lineItems }),
