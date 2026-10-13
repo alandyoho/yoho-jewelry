@@ -317,20 +317,20 @@
   // COMMISSIONS — edit this list to update
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   var commissions = [
-    { year: "2026", text: "set: platinum & 18k gold wedding bands, inlaid sapphires & diamonds", images: "/images/commissions/platinum-18k-gold-wedding-bands-sapphires-diamonds/", count: 3 },
-    { year: "2026", text: "set: teardrop pendants with trillion cut diamonds (sterling silver, 18k gold)", images: "/images/commissions/teardrop-pendants-trillion-cut-diamonds/", count: 2 },
-    { year: "2026", text: "18k emerald signet ring", images: "/images/commissions/emerald-signet-ring/", count: 2 },
-    { year: "2026", text: 'platinum “wave” ring', images: "/images/commissions/platinum-wave-ring/", count: 2 },
-    { year: "2026", text: 'platinum “wave” ring lite', images: "/images/commissions/platinum-wave-ring-lite/", count: 2 },
-    { year: "2026", text: 'platinum “wave” ring with ruby', images: "/images/commissions/platinum-wave-ring-ruby/", count: 1 },
-    { year: "2026", text: 'set: 18k “frog” ring & 18k “panels” ring', images: "/images/commissions/frog-ring-panels-ring/", count: 4 },
-    { year: "2026", text: "sterling silver lostboys x bandit signet", images: "/images/commissions/lost-boys-htc/", count: 4 },
-    { year: "2025", text: 'platinum “wink” ring with marquise & round cut diamonds', images: "/images/commissions/platinum-wink-ring/", count: 1 },
-    { year: "2025", text: "18k grey gold signet ring", images: "/images/commissions/18k-grey-gold-signet-ring/", count: 4 },
-    { year: "2025", text: "chunky platinum engagement ring", images: "/images/commissions/chunky-platinum-engagement-ring/", count: 3 },
-    { year: "2025", text: "set: platinum & 20k gold wedding bands, inlaid diamonds", images: "/images/commissions/platinum-20k-gold-wedding-bands-diamonds/", count: 4 },
-    { year: "2025", text: "platinum floral engagement ring", images: "/images/commissions/platinum-floral-engagement-ring/", count: 4 },
-    { year: "2024", text: "platinum cigar band with diamonds, peridots", images: "/images/commissions/platinum-cigar-band-diamonds-peridots/", count: 4 },
+    { year: "2026", text: "set: platinum & 18k gold wedding bands, inlaid sapphires & diamonds", images: "/images/commissions/platinum-18k-gold-wedding-bands-sapphires-diamonds/", count: 3, price: "$5,000" },
+    { year: "2026", text: "set: teardrop pendants with trillion cut diamonds (sterling silver, 18k gold)", images: "/images/commissions/teardrop-pendants-trillion-cut-diamonds/", count: 2, price: "$500" },
+    { year: "2026", text: "18k emerald signet ring", images: "/images/commissions/emerald-signet-ring/", count: 2, price: "$3,000" },
+    { year: "2026", text: 'platinum “wave” ring', images: "/images/commissions/platinum-wave-ring/", count: 2, price: "$3,000" },
+    { year: "2026", text: 'platinum “wave” ring lite', images: "/images/commissions/platinum-wave-ring-lite/", count: 2, price: "$1,500" },
+    { year: "2026", text: 'platinum “wave” ring with ruby', images: "/images/commissions/platinum-wave-ring-ruby/", count: 1, price: "$3,250" },
+    { year: "2026", text: 'set: 18k “frog” ring & 18k “panels” ring', images: "/images/commissions/frog-ring-panels-ring/", count: 4, price: "$6,000" },
+    { year: "2026", text: "sterling silver lostboys x bandit signet", images: "/images/commissions/lost-boys-htc/", count: 4, price: "$150" },
+    { year: "2025", text: 'platinum “wink” ring with marquise & round cut diamonds', images: "/images/commissions/platinum-wink-ring/", count: 1, price: "$3,500" },
+    { year: "2025", text: "18k grey gold signet ring", images: "/images/commissions/18k-grey-gold-signet-ring/", count: 4, price: "$3,000" },
+    { year: "2025", text: "chunky platinum engagement ring", images: "/images/commissions/chunky-platinum-engagement-ring/", count: 3, price: "$3,500" },
+    { year: "2025", text: "set: platinum & 20k gold wedding bands, inlaid diamonds", images: "/images/commissions/platinum-20k-gold-wedding-bands-diamonds/", count: 4, price: "$4,000" },
+    { year: "2025", text: "platinum floral engagement ring", images: "/images/commissions/platinum-floral-engagement-ring/", count: 4, price: "$25,000" },
+    { year: "2024", text: "platinum cigar band with diamonds, peridots", images: "/images/commissions/platinum-cigar-band-diamonds-peridots/", count: 4, price: "$3,000" },
   ];
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -445,6 +445,24 @@
     containerEl.appendChild(carousel);
   }
 
+  // ── Price unlock (5 logo clicks) ──────
+  var pricesUnlocked = false;
+  var logoClickCount = 0;
+  var logoClickTimer = null;
+  var priceEls = [];
+
+  document.getElementById('logo').addEventListener('click', function() {
+    clearTimeout(logoClickTimer);
+    logoClickCount++;
+    if (logoClickCount >= 5) {
+      logoClickCount = 0;
+      pricesUnlocked = !pricesUnlocked;
+      priceEls.forEach(function(el) { el.style.display = pricesUnlocked ? '' : 'none'; });
+    } else {
+      logoClickTimer = setTimeout(function() { logoClickCount = 0; }, 800);
+    }
+  });
+
   // ── Commissions list ──────────────────
   var commissionsList = document.getElementById('commissionsList');
   commissions.forEach(function(item) {
@@ -464,6 +482,16 @@
     li.querySelector('span').style.marginRight = '0.6rem';
     li.querySelector('span').style.fontVariantNumeric = 'tabular-nums';
     li.appendChild(label);
+
+    if (item.price) {
+      var priceEl = document.createElement('span');
+      priceEl.textContent = ' — ' + item.price;
+      priceEl.style.color = '#888';
+      priceEl.style.display = 'none';
+      li.appendChild(priceEl);
+      priceEls.push(priceEl);
+    }
+
     li.appendChild(carouselContainer);
     commissionsList.appendChild(li);
   });
