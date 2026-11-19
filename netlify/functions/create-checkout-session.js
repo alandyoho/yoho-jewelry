@@ -13,6 +13,7 @@ exports.handler = async function (event) {
       return { price: item.priceId, quantity: item.quantity };
     }),
     mode: 'payment',
+    shipping_address_collection: { allowed_countries: ['US', 'CA', 'GB', 'AU'] },
     return_url: event.headers.origin + '?payment=complete&session_id={CHECKOUT_SESSION_ID}',
     metadata: { items: lineItems.map(function(i) { return i.itemName + ' — ' + i.size; }).join(', ') },
   });
