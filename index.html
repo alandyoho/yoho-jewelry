@@ -473,6 +473,7 @@
     nav.appendChild(next);
     carousel.appendChild(nav);
     containerEl.appendChild(carousel);
+    if (window.innerWidth <= 600) { containerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
   }
 
   // ── Price unlock (5 logo clicks) ──────
