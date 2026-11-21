@@ -473,7 +473,6 @@
     nav.appendChild(next);
     carousel.appendChild(nav);
     containerEl.appendChild(carousel);
-    if (window.innerWidth <= 600) { containerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
   }
 
   // ── Price unlock (5 logo clicks) ──────
@@ -499,12 +498,17 @@
   var commissionsPanel = document.getElementById('commissionsPanel');
   commissions.forEach(function(item) {
     var li = document.createElement('li');
+    var carouselContainer = document.createElement('div');
+    carouselContainer.className = 'post-carousel';
 
     var label = document.createElement('span');
     label.className = 'post-label';
     label.textContent = item.text;
     if (item.count) {
-      label.addEventListener('click', function() { openCarousel(commissionsPanel, item.images, item.count, label); });
+      label.addEventListener('click', function() {
+        var target = window.innerWidth <= 600 ? carouselContainer : commissionsPanel;
+        openCarousel(target, item.images, item.count, label);
+      });
     }
 
     li.appendChild(document.createElement('span')).textContent = item.year;
@@ -522,6 +526,7 @@
       priceEls.push(priceEl);
     }
 
+    li.appendChild(carouselContainer);
     commissionsList.appendChild(li);
   });
 
