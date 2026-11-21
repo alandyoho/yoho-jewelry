@@ -204,6 +204,28 @@
       flex-wrap: wrap;
     }
     footer a { color: #666; }
+
+    .commissions-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    #commissionsList {
+      flex: 1;
+      min-width: 0;
+    }
+    .commissions-panel {
+      flex: 0 0 45%;
+      position: sticky;
+      top: 2rem;
+    }
+    .commissions-panel .carousel {
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      .commissions-layout { flex-direction: column; }
+      .commissions-panel { flex: none; width: 100%; position: static; }
+    }
   </style>
 </head>
 <body>
@@ -274,7 +296,10 @@
   <h2 id="works">Previous Commissions</h2>
   <p>A selection of recent standout pieces. Click any to view photos.</p>
 
-  <ul class="posts" id="commissionsList"></ul>
+  <div class="commissions-layout">
+    <ul class="posts" id="commissionsList"></ul>
+    <div id="commissionsPanel" class="commissions-panel"></div>
+  </div>
 
   <a class="all-link" href="https://instagram.com/alan.yo.ho" target="_blank" rel="noopener">All works on Instagram →</a>
 
@@ -360,6 +385,7 @@
   // ── Carousel ──────────────────────────
   var activeCarouselEl = null;
   var activeLabelEl = null;
+  var activeCarouselDir = null;
 
   function closeActiveCarousel() {
     if (activeCarouselEl) {
@@ -370,10 +396,11 @@
       activeLabelEl.classList.remove('carousel-active');
       activeLabelEl = null;
     }
+    activeCarouselDir = null;
   }
 
   function openCarousel(containerEl, imageDir, count, labelEl) {
-    if (activeCarouselEl === containerEl) {
+    if (activeCarouselEl === containerEl && activeCarouselDir === imageDir) {
       closeActiveCarousel();
       return;
     }
@@ -381,6 +408,7 @@
     if (!count) return;
 
     activeCarouselEl = containerEl;
+    activeCarouselDir = imageDir;
     activeLabelEl = labelEl || null;
     if (activeLabelEl) activeLabelEl.classList.add('carousel-active');
     var index = 0;
@@ -467,16 +495,15 @@
 
   // ── Commissions list ──────────────────
   var commissionsList = document.getElementById('commissionsList');
+  var commissionsPanel = document.getElementById('commissionsPanel');
   commissions.forEach(function(item) {
     var li = document.createElement('li');
-    var carouselContainer = document.createElement('div');
-    carouselContainer.className = 'post-carousel';
 
     var label = document.createElement('span');
     label.className = 'post-label';
     label.textContent = item.text;
     if (item.count) {
-      label.addEventListener('click', function() { openCarousel(carouselContainer, item.images, item.count, label); });
+      label.addEventListener('click', function() { openCarousel(commissionsPanel, item.images, item.count, label); });
     }
 
     li.appendChild(document.createElement('span')).textContent = item.year;
@@ -494,7 +521,6 @@
       priceEls.push(priceEl);
     }
 
-    li.appendChild(carouselContainer);
     commissionsList.appendChild(li);
   });
 
