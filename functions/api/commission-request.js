@@ -38,7 +38,6 @@ export async function onRequestPost(context) {
     ['diamond_quality',         'diamond color & clarity'],
     ['stone_type_other',        'stone (other)'],
     ['designs_you_like',  'designs / pieces you like'],
-    ['aesthetic',         'aesthetic'],
     ['avoid',             'avoid'],
     ['budget',            'budget'],
     ['needed_by',         'needed by'],
