@@ -267,7 +267,7 @@
       <div id="pieceDetailFields">
 
       <div class="field-row">
-        <div class="field">
+        <div class="field" id="pieceTypeField">
           <label for="piece_type">type of piece</label>
           <select id="piece_type" name="piece_type" required data-other="piece_type_other" data-other-placeholder="please describe">
             <option value="" disabled selected></option>
@@ -492,7 +492,7 @@
     var previousCommissionField  = document.getElementById('previousCommissionField');
     var pieceDetailFields        = document.getElementById('pieceDetailFields');
 
-    var pieceTypeField = document.getElementById('piece_type').closest('.field');
+    var pieceTypeField = document.getElementById('pieceTypeField');
 
     requestTypeSelect.addEventListener('change', function() {
       var isPrevious = this.value === 'previous';
