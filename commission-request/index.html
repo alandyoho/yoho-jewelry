@@ -245,6 +245,27 @@
 
       <h2>piece details</h2>
 
+      <div class="field">
+        <label for="request_type">type of request</label>
+        <select id="request_type" name="request_type" required>
+          <option value="" disabled selected></option>
+          <option value="bespoke">completely bespoke</option>
+          <option value="previous">based on a previous commission</option>
+        </select>
+      </div>
+
+      <div id="previousCommissionField" style="display:none">
+        <div class="field">
+          <label for="reference_piece">reference piece</label>
+          <select id="reference_piece" name="reference_piece">
+            <option value="" disabled selected></option>
+          </select>
+        </div>
+        <p class="form-note" style="margin: -0.4rem 0 0.9rem;">i'll use this as a starting point — let me know any changes you'd like below</p>
+      </div>
+
+      <div id="pieceDetailFields">
+
       <div class="field-row">
         <div class="field">
           <label for="piece_type">type of piece</label>
@@ -365,6 +386,8 @@
 
       </div>
 
+      </div><!-- /pieceDetailFields -->
+
       <h2>design direction</h2>
 
       <div class="field">
@@ -437,6 +460,44 @@
   </footer>
 
   <script>
+    // Previous commissions list
+    var previousCommissions = [
+      { year: "2026", text: "18k floral emerald engagement ring" },
+      { year: "2026", text: "platinum zinnia ring" },
+      { year: "2026", text: "set: platinum & 18k gold wedding bands, inlaid sapphires & diamonds" },
+      { year: "2026", text: "set: teardrop pendants with trillion cut diamonds (sterling silver, 18k gold)" },
+      { year: "2026", text: "18k emerald signet ring" },
+      { year: "2026", text: 'platinum “wave” ring' },
+      { year: "2026", text: 'platinum “wave” ring lite' },
+      { year: "2026", text: 'platinum “wave” ring with ruby' },
+      { year: "2026", text: 'set: 18k “frog” ring & 18k “panels” ring' },
+      { year: "2026", text: "sterling silver lostboys x bandit signet" },
+      { year: "2025", text: 'platinum “wink” ring with marquise & round cut diamonds' },
+      { year: "2025", text: "18k grey gold signet ring" },
+      { year: "2025", text: "chunky platinum engagement ring" },
+      { year: "2025", text: "set: platinum & 20k gold wedding bands, inlaid diamonds" },
+      { year: "2025", text: "platinum floral engagement ring" },
+      { year: "2024", text: "platinum cigar band with diamonds, peridots" },
+    ];
+
+    var refSelect = document.getElementById('reference_piece');
+    previousCommissions.forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c.year + ' — ' + c.text;
+      opt.textContent = c.year + '  —  ' + c.text;
+      refSelect.appendChild(opt);
+    });
+
+    var requestTypeSelect        = document.getElementById('request_type');
+    var previousCommissionField  = document.getElementById('previousCommissionField');
+    var pieceDetailFields        = document.getElementById('pieceDetailFields');
+
+    requestTypeSelect.addEventListener('change', function() {
+      var isPrevious = this.value === 'previous';
+      previousCommissionField.style.display = isPrevious ? '' : 'none';
+      pieceDetailFields.style.display = '';
+    });
+
     // Generic "other" text reveal for any select with data-other
     document.querySelectorAll('select[data-other]').forEach(function(sel) {
       var input = document.createElement('input');
