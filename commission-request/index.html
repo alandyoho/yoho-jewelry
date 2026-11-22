@@ -162,8 +162,9 @@
     }
     footer a { color: #666; }
 
-    .ref-preview { margin-top: 0.75rem; }
+    .ref-preview { margin-top: 0.75rem; width: 50%; }
     .ref-preview img { width: 100%; display: block; }
+    @media (max-width: 480px) { .ref-preview { width: 100%; } }
     .ref-preview .carousel-nav { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.3rem; font-size: 0.78rem; color: #888; }
     .ref-preview .carousel-nav button { font-family: inherit; font-size: 0.78rem; color: #888; background: none; border: none; padding: 0; cursor: pointer; }
     .ref-preview .carousel-nav button:hover { color: #1a1a1a; }
