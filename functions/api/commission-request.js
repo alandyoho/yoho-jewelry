@@ -28,6 +28,8 @@ export async function onRequestPost(context) {
     ['preferred_metal_other', 'preferred metal (other)'],
     ['ring_size_system',  'ring size system'],
     ['ring_size_value',   'ring size'],
+    ['stone_count',             'stones'],
+    ['stone_multiple_desc',     'stone description (multiple)'],
     ['stone_type',              'stone type'],
     ['stone_cut',               'stone shape / cut'],
     ['stone_carat',             'stone carat weight'],

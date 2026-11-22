@@ -326,10 +326,28 @@
       </div>
 
       <div class="field">
+        <label for="stone_count">stones</label>
+        <select id="stone_count" name="stone_count">
+          <option value="" disabled selected></option>
+          <option value="none">none</option>
+          <option value="single">single stone</option>
+          <option value="multiple">multiple stones</option>
+          <option value="not sure">not sure</option>
+        </select>
+      </div>
+
+      <div id="stoneMultiple" style="display:none">
+        <div class="field">
+          <label for="stone_multiple_desc">describe the stones <span class="hint">types, shapes, arrangement — whatever you have in mind</span></label>
+          <textarea id="stone_multiple_desc" name="stone_multiple_desc" rows="3"></textarea>
+        </div>
+      </div>
+
+      <div id="stoneSingle" style="display:none">
+      <div class="field">
         <label for="stone_type">preferred stone <span class="hint">if any</span></label>
         <select id="stone_type" name="stone_type" data-other="stone_type_other" data-other-placeholder="e.g. alexandrite, tourmaline, opal">
           <option value="" disabled selected></option>
-          <option value="none">none</option>
           <option value="diamond">diamond</option>
           <option value="sapphire">sapphire</option>
           <option value="emerald">emerald</option>
@@ -384,7 +402,8 @@
           </div>
         </div>
 
-      </div>
+      </div><!-- /stoneDetails -->
+      </div><!-- /stoneSingle -->
 
       </div><!-- /pieceDetailFields -->
 
@@ -562,7 +581,17 @@
     ringSizeSystem.value = 'us';
     ringSizeSystem.dispatchEvent(new Event('change'));
 
-    // Stone detail visibility
+    // Stone count → single or multiple
+    var stoneCountSelect = document.getElementById('stone_count');
+    var stoneSingle      = document.getElementById('stoneSingle');
+    var stoneMultiple    = document.getElementById('stoneMultiple');
+
+    stoneCountSelect.addEventListener('change', function() {
+      stoneSingle.style.display   = this.value === 'single'   ? '' : 'none';
+      stoneMultiple.style.display = this.value === 'multiple' ? '' : 'none';
+    });
+
+    // Single stone detail visibility
     var stoneSelect        = document.getElementById('stone_type');
     var stoneDetails       = document.getElementById('stoneDetails');
     var stoneColorField    = document.getElementById('stoneColorField');
@@ -570,9 +599,8 @@
 
     stoneSelect.addEventListener('change', function() {
       var v = this.value;
-      var hasStone = v && v !== 'none';
-      stoneDetails.style.display        = hasStone ? '' : 'none';
-      stoneColorField.style.display     = (hasStone && v !== 'diamond' && v !== 'other' && v !== 'not sure') ? '' : 'none';
+      stoneDetails.style.display        = v ? '' : 'none';
+      stoneColorField.style.display     = (v && v !== 'diamond' && v !== 'other' && v !== 'not sure') ? '' : 'none';
       stoneDiamondFields.style.display  = (v === 'diamond') ? '' : 'none';
     });
 
