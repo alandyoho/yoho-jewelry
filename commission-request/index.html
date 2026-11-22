@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commission Request — Yoho Jewelry</title>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta property="og:title" content="Commission Request — Yoho Jewelry">
+  <meta property="og:description" content="Start a custom jewelry commission with Yoho Jewelry.">
+  <meta property="og:url" content="https://yoho.jewelry/commission-request">
+  <meta property="og:type" content="website">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    a { color: #0055bb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:visited { color: #0055bb; }
+
+    main {
+      max-width: 640px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    .logo {
+      height: 35px;
+      width: auto;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .back { font-size: 0.85rem; color: #888; display: block; margin-bottom: 2rem; }
+    .back:visited { color: #888; }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 2rem 0 0.4rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid #e8e8e8;
+    }
+    h2:first-of-type { margin-top: 0; border-top: none; padding-top: 0; }
+
+    p.lead { font-size: 0.9rem; color: #555; margin: 0 0 1.6rem; }
+
+    .field-row {
+      display: flex;
+      gap: 1.4rem;
+      margin-bottom: 0.9rem;
+    }
+    .field-row .field { flex: 1; min-width: 0; }
+    .field { margin-bottom: 0.9rem; }
+
+    label {
+      display: block;
+      font-size: 0.78rem;
+      color: #1a1a1a;
+      margin-bottom: 0.25rem;
+    }
+    label .hint {
+      color: #aaa;
+      font-weight: 400;
+      margin-left: 0.3rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: #1a1a1a;
+      background: none;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      border-radius: 0;
+      padding: 0.3rem 0;
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-bottom-color: #1a1a1a;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+      line-height: 1.5;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.2rem center;
+      padding-right: 1.2rem;
+      cursor: pointer;
+    }
+
+    .submit-row {
+      margin-top: 2.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    button[type="submit"] {
+      font-family: inherit;
+      font-size: 0.82rem;
+      color: #0055bb;
+      background: none;
+      border: 1px solid #0055bb;
+      border-radius: 2px;
+      padding: 4px 16px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    button[type="submit"]:hover { background: #0055bb; color: #fff; }
+    button[type="submit"]:disabled { color: #aaa; border-color: #aaa; cursor: default; }
+    button[type="submit"]:disabled:hover { background: none; }
+
+    .form-note { font-size: 0.78rem; color: #888; }
+
+    .success-msg {
+      display: none;
+      font-size: 0.9rem;
+      color: #1a1a1a;
+      margin-top: 2rem;
+      padding: 1rem 0;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    footer {
+      max-width: 640px;
+      margin: 3rem auto 2rem;
+      padding: 0 1rem;
+      font-size: 0.82rem;
+      color: #666;
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+    }
+    footer a { color: #666; }
+
+    @media (max-width: 480px) {
+      .field-row { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="/" class="back" aria-label="Back to Yoho Jewelry">
+      <svg class="logo" viewBox="0 0 1800 954" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(0,954) scale(0.1,-0.1)" fill="#1a1a1a" stroke="none">
+          <path d="M2600 7390 c-316 -5 -330 -7 -392 -51 -33 -24 -76 -88 -89 -133 -14 -46 -11 -2241 2 -2290 14 -50 102 -140 155 -157 31 -11 261 -15 1069 -19 1009 -6 1031 -7 1101 -27 89 -27 158 -50 181 -62 47 -23 110 -56 128 -65 48 -27 175 -129 226 -182 142 -150 216 -285 271 -493 39 -149 25 -423 -28 -549 -8 -18 -14 -39 -14 -47 0 -20 -68 -151 -115 -223 -68 -101 -183 -215 -291 -288 -266 -177 -598 -221 -915 -120 -26 8 -55 19 -65 24 -11 5 -39 20 -64 32 -145 73 -312 220 -398 350 -73 108 -144 267 -163 360 -4 25 -13 63 -18 85 -6 22 -11 132 -11 244 0 245 -8 278 -86 356 -80 81 -101 85 -449 85 -243 0 -301 -3 -343 -16 -60 -20 -114 -61 -150 -118 l-27 -41 0 -890 0 -890 27 -41 c37 -58 89 -97 151 -117 50 -16 302 -17 3525 -17 3451 0 3472 0 3525 20 99 37 159 113 177 226 6 33 10 261 10 508 0 476 -1 466 50 631 60 197 217 409 403 544 69 51 244 141 273 141 8 0 24 5 35 11 33 17 199 41 289 40 115 0 285 -32 375 -70 203 -87 352 -199 465 -351 58 -79 137 -222 151 -274 5 -17 20 -74 33 -126 l25 -95 1 -483 c0 -456 1 -486 20 -540 26 -75 88 -136 166 -162 56 -20 95 -20 1940 -20 1710 0 1888 1 1931 16 63 22 115 63 150 122 l28 47 0 2472 0 2472 -41 57 c-30 43 -55 65 -96 86 l-55 28 -1917 0 -1917 0 -54 -26 c-65 -30 -105 -76 -134 -151 -20 -53 -21 -72 -21 -517 0 -415 -2 -472 -19 -553 -10 -49 -24 -99 -30 -111 -6 -11 -11 -28 -11 -37 0 -23 -79 -180 -126 -252 -55 -82 -166 -196 -256 -264 -255 -190 -603 -254 -889 -164 -26 8 -52 15 -59 15 -23 0 -203 93 -269 138 -167 116 -324 322 -386 507 -50 145 -48 124 -54 675 -7 572 -6 559 -67 639 -36 47 -68 70 -124 90 -48 16 -3831 16 -3882 -1 -45 -15 -111 -66 -134 -103 -41 -68 -42 -85 -47 -590 -4 -523 -2 -490 -57 -670 -81 -265 -293 -510 -545 -633 -299 -145 -625 -141 -930 10 -143 71 -268 176 -365 309 -81 110 -124 190 -159 297 -50 152 -51 171 -51 676 0 451 -1 480 -20 533 -11 32 -33 73 -48 93 -31 37 -118 85 -167 91 -16 2 -167 2 -335 -1z m4986 -549 c137 -29 192 -47 289 -97 224 -114 408 -309 495 -526 86 -211 80 -102 80 -1472 0 -1163 -1 -1218 -19 -1293 -21 -86 -36 -133 -56 -178 -8 -16 -16 -37 -19 -45 -3 -8 -12 -24 -18 -35 -7 -11 -36 -56 -64 -100 -85 -133 -245 -276 -389 -347 -113 -56 -166 -75 -280 -100 -81 -18 -333 -17 -410 1 -66 15 -167 47 -193 60 -9 5 -42 21 -72 36 -162 79 -324 235 -437 420 -25 41 -72 146 -93 205 -45 133 -43 84 -47 1350 -4 1297 -7 1222 49 1395 17 52 86 202 121 260 27 45 128 164 180 211 237 217 586 318 883 255z m6359 -1 c120 -25 173 -43 275 -91 291 -141 500 -415 570 -748 19 -91 20 -137 20 -1255 0 -1027 -2 -1171 -16 -1246 -9 -47 -22 -100 -30 -118 -8 -18 -14 -40 -14 -48 0 -9 -6 -28 -14 -42 -7 -15 -22 -45 -32 -67 -65 -139 -219 -320 -346 -406 -183 -125 -388 -189 -603 -189 -152 0 -269 25 -435 94 -39 16 -131 73 -190 117 -129 96 -229 217 -307 369 -49 96 -56 114 -96 250 l-22 75 0 1210 c0 1102 1 1214 17 1260 9 28 19 61 21 75 24 116 127 300 245 438 35 40 174 162 186 162 3 0 22 12 43 26 187 127 493 184 728 134z"/>
+        </g>
+      </svg>
+    </a>
+
+    <h2 style="border-top:none;padding-top:0;margin-top:0;">commission request</h2>
+    <p class="lead">fill out the form below and i'll follow up within a few days to discuss your project.</p>
+
+    <form id="commissionForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+
+      <h2>client information</h2>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="name">name</label>
+          <input type="text" id="name" name="name" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="email">email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="phone">phone <span class="hint">optional</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="instagram">instagram <span class="hint">optional</span></label>
+          <input type="text" id="instagram" name="instagram" placeholder="@handle">
+        </div>
+      </div>
+
+      <h2>piece details</h2>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="piece_type">type of piece</label>
+          <select id="piece_type" name="piece_type" required>
+            <option value="" disabled selected></option>
+            <option>ring</option>
+            <option>necklace</option>
+            <option>bracelet</option>
+            <option>earrings</option>
+            <option>other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="occasion">occasion</label>
+          <select id="occasion" name="occasion">
+            <option value="" disabled selected></option>
+            <option>engagement</option>
+            <option>wedding band</option>
+            <option>anniversary</option>
+            <option>gift</option>
+            <option>personal</option>
+            <option>other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="metal">preferred metal</label>
+          <select id="metal" name="preferred_metal">
+            <option value="" disabled selected></option>
+            <option>sterling silver</option>
+            <option>14k yellow gold</option>
+            <option>18k yellow gold</option>
+            <option>18k white gold</option>
+            <option>18k grey gold</option>
+            <option>20k gold</option>
+            <option>22k gold</option>
+            <option>platinum</option>
+            <option>not sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="ring_size">ring size <span class="hint">if applicable</span></label>
+          <input type="text" id="ring_size" name="ring_size" placeholder="us size or mm circumference">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="stone_type">preferred stone type <span class="hint">if any</span></label>
+          <select id="stone_type" name="stone_type">
+            <option value="" disabled selected></option>
+            <option>none</option>
+            <option>diamond</option>
+            <option>sapphire</option>
+            <option>emerald</option>
+            <option>ruby</option>
+            <option>other</option>
+            <option>not sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="stone_cut">stone cut <span class="hint">if any</span></label>
+          <select id="stone_cut" name="stone_cut">
+            <option value="" disabled selected></option>
+            <option>round</option>
+            <option>oval</option>
+            <option>marquise</option>
+            <option>emerald cut</option>
+            <option>pear</option>
+            <option>cushion</option>
+            <option>trillion</option>
+            <option>not sure</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="stone_carat">stone carat weight <span class="hint">if any</span></label>
+          <input type="text" id="stone_carat" name="stone_carat" placeholder="e.g. 0.5 ct, 1 ct, flexible">
+        </div>
+        <div class="field">
+          <!-- spacer -->
+        </div>
+      </div>
+
+      <h2>design direction</h2>
+
+      <div class="field">
+        <label for="designs">designs / pieces you like</label>
+        <textarea id="designs" name="designs_you_like" rows="4" placeholder="describe, or share instagram / pinterest links — the more the better"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="aesthetic">overall aesthetic</label>
+        <select id="aesthetic" name="aesthetic">
+          <option value="" disabled selected></option>
+          <option>minimal</option>
+          <option>ornate</option>
+          <option>geometric</option>
+          <option>organic</option>
+          <option>vintage</option>
+          <option>modern</option>
+          <option>not sure</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="avoid">anything you'd like to avoid <span class="hint">optional</span></label>
+        <input type="text" id="avoid" name="avoid">
+      </div>
+
+      <h2>budget &amp; timeline</h2>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="budget">budget range</label>
+          <select id="budget" name="budget" required>
+            <option value="" disabled selected></option>
+            <option>under $500</option>
+            <option>$500 – $1,500</option>
+            <option>$1,500 – $3,000</option>
+            <option>$3,000 – $6,000</option>
+            <option>$6,000 – $15,000</option>
+            <option>$15,000+</option>
+            <option>flexible / not sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="needed_by">needed by <span class="hint">optional</span></label>
+          <input type="text" id="needed_by" name="needed_by" placeholder="e.g. June 2026 — lead time ~3 months">
+        </div>
+      </div>
+
+      <h2>additional notes</h2>
+
+      <div class="field">
+        <label for="notes">anything else i should know <span class="hint">optional</span></label>
+        <textarea id="notes" name="additional_notes" rows="4"></textarea>
+      </div>
+
+      <div class="submit-row">
+        <button type="submit" id="submitBtn">submit</button>
+        <span class="form-note">a $500 deposit is required to begin</span>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        thank you — i'll be in touch within a few days.
+      </div>
+
+    </form>
+  </main>
+
+  <footer>
+    <a href="/">yoho.jewelry</a> &nbsp;·&nbsp; <a href="mailto:alan@yoho.jewelry">alan@yoho.jewelry</a>
+  </footer>
+
+  <script>
+    var form = document.getElementById('commissionForm');
+    var btn  = document.getElementById('submitBtn');
+    var msg  = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'sending…';
+
+      try {
+        var res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          msg.style.display = 'block';
+        } else {
+          throw new Error();
+        }
+      } catch (_) {
+        btn.disabled = false;
+        btn.textContent = 'submit';
+        alert('something went wrong — please email alan@yoho.jewelry directly.');
+      }
+    });
+  </script>
+</body>
+</html>
