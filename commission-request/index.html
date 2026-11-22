@@ -686,6 +686,42 @@
       stoneDiamondFields.style.display  = (v === 'diamond') ? '' : 'none';
     });
 
+    // Click particle effect
+    document.addEventListener('click', function(e) {
+      var count = 12;
+      for (var i = 0; i < count; i++) {
+        var p = document.createElement('div');
+        var size = Math.random() * 2 + 1;
+        var angle = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+        var dist = Math.random() * 22 + 11;
+        var tx = Math.cos(angle) * dist;
+        var ty = Math.sin(angle) * dist;
+        p.style.cssText = [
+          'position:fixed',
+          'left:' + (e.clientX - size / 2) + 'px',
+          'top:' + (e.clientY - size / 2) + 'px',
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'background:#1a1a1a',
+          'border-radius:1px',
+          'pointer-events:none',
+          'z-index:9999',
+          'transition:transform 400ms ease-out, opacity 400ms ease-out',
+          'will-change:transform,opacity',
+        ].join(';');
+        document.body.appendChild(p);
+        requestAnimationFrame(function(el, x, y) {
+          return function() {
+            requestAnimationFrame(function() {
+              el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+              el.style.opacity = '0';
+            });
+          };
+        }(p, tx, ty));
+        setTimeout(function(el) { return function() { el.remove(); }; }(p), 420);
+      }
+    });
+
     var form = document.getElementById('commissionForm');
     var btn  = document.getElementById('submitBtn');
     var msg  = document.getElementById('successMsg');
