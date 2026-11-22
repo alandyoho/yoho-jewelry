@@ -468,6 +468,8 @@
         <button type="submit" id="submitBtn">submit</button>
       </div>
 
+      <div id="validationMsg" style="display:none;margin-top:0.75rem;font-size:0.82rem;color:#c00;"></div>
+
       <div class="success-msg" id="successMsg">
         <p style="margin:0 0 1rem;">thank you — i'll be in touch within a few days.</p>
         <button type="button" id="resetBtn" style="font-family:inherit;font-size:0.82rem;color:#0055bb;background:none;border:1px solid #0055bb;border-radius:2px;padding:4px 16px;cursor:pointer;">submit another request</button>
@@ -736,13 +738,39 @@
       stoneCountSelect.dispatchEvent(new Event('change'));
       requestTypeSelect.dispatchEvent(new Event('change'));
       msg.style.display = 'none';
+      validationMsg.style.display = 'none';
       form.style.display = '';
       btn.disabled = false;
       btn.textContent = 'submit';
     });
 
+    var validationMsg = document.getElementById('validationMsg');
+
+    function validateForm() {
+      var isPrevious = requestTypeSelect.value === 'previous';
+      var checks = [
+        { el: document.getElementById('name'),         label: 'name' },
+        { el: document.getElementById('email'),        label: 'email' },
+        { el: requestTypeSelect,                       label: 'type of request' },
+        { el: isPrevious ? refSelect : null,           label: 'reference piece' },
+        { el: isPrevious ? null : document.getElementById('piece_type'), label: 'type of piece' },
+        { el: document.getElementById('budget'),       label: 'budget range' },
+      ];
+      return checks.filter(function(c) { return c.el && !c.el.value.trim(); }).map(function(c) { return c.label; });
+    }
+
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
+
+      var missing = validateForm();
+      if (missing.length) {
+        validationMsg.innerHTML = 'please fill out the following before submitting:<ul style="margin:0.3rem 0 0;padding-left:1.2rem;">' +
+          missing.map(function(f) { return '<li>' + f + '</li>'; }).join('') + '</ul>';
+        validationMsg.style.display = '';
+        return;
+      }
+      validationMsg.style.display = 'none';
+
       btn.disabled = true;
       btn.textContent = 'sending…';
 
