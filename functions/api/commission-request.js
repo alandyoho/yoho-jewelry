@@ -28,7 +28,7 @@ export async function onRequestPost(context) {
     ['stone_origin',            'lab grown or natural'],
     ['stone_color',             'stone color'],
     ['diamond_quality',         'diamond color & clarity'],
-    ['stone_other_description', 'stone description'],
+    ['stone_type_other',        'stone (other)'],
     ['designs_you_like',  'designs / pieces you like'],
     ['aesthetic',         'aesthetic'],
     ['avoid',             'avoid'],

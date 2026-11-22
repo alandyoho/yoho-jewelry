@@ -262,6 +262,9 @@
           <option value="other">other</option>
           <option value="not sure">not sure</option>
         </select>
+        <div id="stoneOtherInline" style="display:none; margin-top:0.5rem;">
+          <input type="text" id="stone_other_inline" name="stone_type_other" placeholder="e.g. alexandrite, tourmaline, opal" style="width:100%">
+        </div>
       </div>
 
       <div id="stoneDetails" style="display:none">
@@ -309,10 +312,6 @@
           </div>
         </div>
 
-        <div class="field" id="stoneOtherField" style="display:none">
-          <label for="stone_other">stone type <span class="hint">please describe</span></label>
-          <input type="text" id="stone_other" name="stone_other_description" placeholder="e.g. alexandrite, tourmaline, opal">
-        </div>
       </div>
 
       <h2>design direction</h2>
@@ -388,19 +387,19 @@
 
   <script>
     // Stone detail visibility
-    var stoneSelect       = document.getElementById('stone_type');
-    var stoneDetails      = document.getElementById('stoneDetails');
-    var stoneColorField   = document.getElementById('stoneColorField');
-    var stoneDiamondFields= document.getElementById('stoneDiamondFields');
-    var stoneOtherField   = document.getElementById('stoneOtherField');
+    var stoneSelect        = document.getElementById('stone_type');
+    var stoneDetails       = document.getElementById('stoneDetails');
+    var stoneColorField    = document.getElementById('stoneColorField');
+    var stoneDiamondFields = document.getElementById('stoneDiamondFields');
+    var stoneOtherInline   = document.getElementById('stoneOtherInline');
 
     stoneSelect.addEventListener('change', function() {
       var v = this.value;
       var hasStone = v && v !== 'none';
-      stoneDetails.style.display       = hasStone ? '' : 'none';
-      stoneColorField.style.display    = (hasStone && v !== 'diamond' && v !== 'other' && v !== 'not sure') ? '' : 'none';
-      stoneDiamondFields.style.display = (v === 'diamond') ? '' : 'none';
-      stoneOtherField.style.display    = (v === 'other') ? '' : 'none';
+      stoneDetails.style.display        = hasStone ? '' : 'none';
+      stoneColorField.style.display     = (hasStone && v !== 'diamond' && v !== 'other' && v !== 'not sure') ? '' : 'none';
+      stoneDiamondFields.style.display  = (v === 'diamond') ? '' : 'none';
+      stoneOtherInline.style.display    = (v === 'other') ? '' : 'none';
     });
 
     var form = document.getElementById('commissionForm');
