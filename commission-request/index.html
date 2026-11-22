@@ -245,9 +245,19 @@
             <option>other</option>
           </select>
         </div>
-        <div class="field">
-          <label for="ring_size">ring size <span class="hint">if applicable</span></label>
-          <input type="text" id="ring_size" name="ring_size" placeholder="us size or mm circumference">
+        <div class="field" id="ringSizeField">
+          <label>ring size <span class="hint">if applicable</span></label>
+          <select id="ring_size_system" name="ring_size_system">
+            <option value="" disabled selected></option>
+            <option value="us">us</option>
+            <option value="uk">uk / australia</option>
+            <option value="eu">eu</option>
+            <option value="japan">japan</option>
+            <option value="circumference">circumference (mm)</option>
+            <option value="diameter">diameter (mm)</option>
+            <option value="not sure">not sure</option>
+          </select>
+          <div id="ringSizeValue" style="display:none; margin-top:0.5rem;"></div>
         </div>
       </div>
 
@@ -396,6 +406,50 @@
         input.style.display = this.value === 'other' ? '' : 'none';
         if (this.value !== 'other') input.value = '';
       });
+    });
+
+    // Ring size system → value field
+    var ringSizes = {
+      us:            ['3','3.5','4','4.5','5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13'],
+      uk:            ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+      eu:            ['44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68'],
+      japan:         ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27'],
+    };
+
+    var ringSizeSystem = document.getElementById('ring_size_system');
+    var ringSizeValue  = document.getElementById('ringSizeValue');
+
+    ringSizeSystem.addEventListener('change', function() {
+      var v = this.value;
+      ringSizeValue.innerHTML = '';
+
+      if (!v || v === 'not sure') {
+        ringSizeValue.style.display = 'none';
+        return;
+      }
+
+      ringSizeValue.style.display = '';
+
+      if (v === 'circumference' || v === 'diameter') {
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.name = 'ring_size_value';
+        inp.placeholder = v === 'circumference' ? 'e.g. 52 mm' : 'e.g. 16.5 mm';
+        inp.style.width = '100%';
+        ringSizeValue.appendChild(inp);
+      } else {
+        var sel = document.createElement('select');
+        sel.name = 'ring_size_value';
+        var blank = document.createElement('option');
+        blank.value = ''; blank.disabled = true; blank.selected = true;
+        sel.appendChild(blank);
+        ringSizes[v].forEach(function(s) {
+          var opt = document.createElement('option');
+          opt.textContent = s;
+          sel.appendChild(opt);
+        });
+        ringSizeValue.appendChild(sel);
+      }
     });
 
     // Stone detail visibility
