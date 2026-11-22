@@ -161,11 +161,12 @@
     footer a { color: #666; }
 
     .ref-preview { margin-top: 0.75rem; }
-    .ref-preview img { width: 100%; max-height: 320px; object-fit: cover; display: block; }
-    .ref-nav { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.4rem; font-size: 0.78rem; color: #888; }
-    .ref-nav button { font-family: inherit; font-size: 0.78rem; color: #888; background: none; border: none; padding: 0; cursor: pointer; }
-    .ref-nav button:hover { color: #1a1a1a; }
-    .ref-nav button:disabled { color: #ccc; cursor: default; }
+    .ref-preview img { width: 100%; display: block; }
+    .ref-preview .carousel-nav { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.3rem; font-size: 0.78rem; color: #888; }
+    .ref-preview .carousel-nav button { font-family: inherit; font-size: 0.78rem; color: #888; background: none; border: none; padding: 0; cursor: pointer; }
+    .ref-preview .carousel-nav button:hover { color: #1a1a1a; }
+    .ref-preview .carousel-nav button:disabled { color: #ccc; cursor: default; }
+    .ref-preview .carousel-count { font-size: 0.78rem; color: #888; }
 
     @media (max-width: 480px) {
       .field-row { flex-direction: column; gap: 0; }
@@ -271,14 +272,7 @@
           <select id="reference_piece" name="reference_piece">
             <option value="" disabled selected></option>
           </select>
-          <div id="referencePiecePreview" class="ref-preview" style="display:none">
-            <img id="referencePieceImg" src="" alt="">
-            <div id="referencePieceNav" class="ref-nav">
-              <button type="button" id="refPrev">&#8592;</button>
-              <span id="referencePieceCount"></span>
-              <button type="button" id="refNext">&#8594;</button>
-            </div>
-          </div>
+          <div id="referencePiecePreview" class="ref-preview" style="display:none"></div>
         </div>
         <p class="form-note" style="margin: -0.4rem 0 0.9rem;">i'll use this as a starting point — let me know any changes you'd like below</p>
       </div>
@@ -508,11 +502,6 @@
 
     var refSelect  = document.getElementById('reference_piece');
     var refPreview = document.getElementById('referencePiecePreview');
-    var refImg     = document.getElementById('referencePieceImg');
-    var refNav     = document.getElementById('referencePieceNav');
-    var refCounter = document.getElementById('referencePieceCount');
-    var currentRef = null;
-    var refIndex   = 0;
 
     previousCommissions.forEach(function(c, i) {
       var opt = document.createElement('option');
@@ -520,15 +509,6 @@
       opt.textContent = c.year + '  —  ' + c.text;
       refSelect.appendChild(opt);
     });
-
-    function showRefImage(c, idx) {
-      refImg.src = c.images + (idx + 1) + '.jpg';
-      refImg.alt = c.text;
-      refCounter.textContent = (idx + 1) + ' / ' + c.count;
-      refNav.style.display = c.count > 1 ? '' : 'none';
-      document.getElementById('refPrev').disabled = idx === 0;
-      document.getElementById('refNext').disabled = idx === c.count - 1;
-    }
 
     var refLabelInput = document.createElement('input');
     refLabelInput.type = 'hidden';
@@ -538,21 +518,76 @@
     refSelect.addEventListener('change', function() {
       var i = parseInt(this.value);
       if (isNaN(i)) { refPreview.style.display = 'none'; refLabelInput.value = ''; return; }
-      currentRef = previousCommissions[i];
-      refLabelInput.value = currentRef.year + ' — ' + currentRef.text;
-      refIndex = 0;
-      refPreview.style.display = '';
-      showRefImage(currentRef, refIndex);
+      var c = previousCommissions[i];
+      refLabelInput.value = c.year + ' — ' + c.text;
+      buildRefCarousel(c);
     });
 
-    document.getElementById('refPrev').addEventListener('click', function() {
-      if (!currentRef || refIndex <= 0) return;
-      showRefImage(currentRef, --refIndex);
-    });
-    document.getElementById('refNext').addEventListener('click', function() {
-      if (!currentRef || refIndex >= currentRef.count - 1) return;
-      showRefImage(currentRef, ++refIndex);
-    });
+    function buildRefCarousel(c) {
+      refPreview.innerHTML = '';
+      refPreview.style.display = '';
+
+      var index = 0;
+      var direction = 1;
+
+      var img = document.createElement('img');
+      img.src = c.images + '1.jpg';
+      img.alt = c.text;
+      img.style.cursor = c.count > 1 ? 'pointer' : 'default';
+      img.addEventListener('click', function() {
+        if (c.count <= 1) return;
+        var next_index = index + direction;
+        if (next_index >= c.count) { direction = -1; next_index = index + direction; }
+        if (next_index < 0)        { direction =  1; next_index = index + direction; }
+        goTo(next_index);
+      });
+      refPreview.appendChild(img);
+
+      var nav = document.createElement('div');
+      nav.className = 'carousel-nav';
+
+      var prev = document.createElement('button');
+      prev.type = 'button';
+      prev.textContent = '← prev';
+      prev.disabled = true;
+
+      var countLabel = document.createElement('span');
+      countLabel.className = 'carousel-count';
+      countLabel.textContent = '1 / ' + c.count;
+
+      var next = document.createElement('button');
+      next.type = 'button';
+      next.textContent = 'next →';
+      next.disabled = c.count <= 1;
+
+      function goTo(i) {
+        index = i;
+        img.src = c.images + (i + 1) + '.jpg';
+        countLabel.textContent = (i + 1) + ' / ' + c.count;
+        prev.disabled = i === 0;
+        next.disabled = i === c.count - 1;
+      }
+
+      prev.addEventListener('click', function() { if (index > 0) goTo(index - 1); });
+      next.addEventListener('click', function() { if (index < c.count - 1) goTo(index + 1); });
+
+      var touchStartX = 0;
+      refPreview.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      refPreview.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) {
+          if (dx < 0 && index < c.count - 1) goTo(index + 1);
+          if (dx > 0 && index > 0) goTo(index - 1);
+        }
+      }, { passive: true });
+
+      nav.appendChild(prev);
+      nav.appendChild(countLabel);
+      nav.appendChild(next);
+      refPreview.appendChild(nav);
+    }
 
     var requestTypeSelect        = document.getElementById('request_type');
     var previousCommissionField  = document.getElementById('previousCommissionField');
