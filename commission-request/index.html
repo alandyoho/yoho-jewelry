@@ -526,9 +526,6 @@
     var ringSizeSystem = document.getElementById('ring_size_system');
     var ringSizeValue  = document.getElementById('ringSizeValue');
 
-    ringSizeSystem.value = 'us';
-    ringSizeSystem.dispatchEvent(new Event('change'));
-
     ringSizeSystem.addEventListener('change', function() {
       var v = this.value;
       ringSizeValue.innerHTML = '';
@@ -561,6 +558,9 @@
         ringSizeValue.appendChild(sel);
       }
     });
+
+    ringSizeSystem.value = 'us';
+    ringSizeSystem.dispatchEvent(new Event('change'));
 
     // Stone detail visibility
     var stoneSelect        = document.getElementById('stone_type');
