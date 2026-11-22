@@ -3,6 +3,16 @@ export async function onRequestPost(context) {
 
   const formData = await request.formData();
 
+  const name  = formData.get('name')?.trim();
+  const email = formData.get('email')?.trim();
+
+  if (!name || !email) {
+    return new Response(JSON.stringify({ error: 'name and email are required' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const fields = [
     ['name',              'name'],
     ['email',             'email'],
@@ -31,8 +41,6 @@ export async function onRequestPost(context) {
     .filter(Boolean)
     .join('\n');
 
-  const name  = formData.get('name')  || 'someone';
-  const email = formData.get('email') || '';
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -43,7 +51,7 @@ export async function onRequestPost(context) {
     body: JSON.stringify({
       from: 'commission-request@yoho.jewelry',
       to: 'alan@yoho.jewelry',
-      reply_to: email || undefined,
+      reply_to: email,
       subject: `commission request from ${name}`,
       text: lines,
     }),
