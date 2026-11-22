@@ -466,7 +466,8 @@
       </div>
 
       <div class="success-msg" id="successMsg">
-        thank you — i'll be in touch within a few days.
+        <p style="margin:0 0 1rem;">thank you — i'll be in touch within a few days.</p>
+        <button type="button" id="resetBtn" style="font-family:inherit;font-size:0.82rem;color:#0055bb;background:none;border:1px solid #0055bb;border-radius:2px;padding:4px 16px;cursor:pointer;">submit another request</button>
       </div>
 
     </form>
@@ -720,9 +721,22 @@
       }
     });
 
-    var form = document.getElementById('commissionForm');
-    var btn  = document.getElementById('submitBtn');
-    var msg  = document.getElementById('successMsg');
+    var form     = document.getElementById('commissionForm');
+    var btn      = document.getElementById('submitBtn');
+    var msg      = document.getElementById('successMsg');
+    var resetBtn = document.getElementById('resetBtn');
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      ringSizeSystem.value = 'us';
+      ringSizeSystem.dispatchEvent(new Event('change'));
+      stoneCountSelect.dispatchEvent(new Event('change'));
+      requestTypeSelect.dispatchEvent(new Event('change'));
+      msg.style.display = 'none';
+      form.style.display = '';
+      btn.disabled = false;
+      btn.textContent = 'submit';
+    });
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
