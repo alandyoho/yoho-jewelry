@@ -44,10 +44,16 @@ export async function onRequestPost(context) {
     ['additional_notes',  'additional notes'],
   ];
 
+  const valueMap = {
+    request_type: { bespoke: 'completely bespoke', previous: 'based on a previous commission' },
+  };
+
   const lines = fields
     .map(([key, label]) => {
       const val = formData.get(key);
-      return val ? `${label}: ${val}` : null;
+      if (!val) return null;
+      const mapped = valueMap[key]?.[val] ?? val;
+      return `${label}: ${mapped}`;
     })
     .filter(Boolean)
     .join('\n');
