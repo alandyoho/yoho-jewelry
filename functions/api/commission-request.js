@@ -19,7 +19,7 @@ export async function onRequestPost(context) {
     ['phone',             'phone'],
     ['instagram',         'instagram'],
     ['request_type',      'type of request'],
-    ['reference_piece',   'reference piece'],
+    ['reference_piece_label', 'reference piece'],
     ['piece_type',        'type of piece'],
     ['piece_type_other',  'type of piece (other)'],
     ['occasion',          'occasion'],

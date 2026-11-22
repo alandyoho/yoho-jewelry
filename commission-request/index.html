@@ -160,6 +160,13 @@
     }
     footer a { color: #666; }
 
+    .ref-preview { margin-top: 0.75rem; }
+    .ref-preview img { width: 100%; max-height: 320px; object-fit: cover; display: block; }
+    .ref-nav { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.4rem; font-size: 0.78rem; color: #888; }
+    .ref-nav button { font-family: inherit; font-size: 0.78rem; color: #888; background: none; border: none; padding: 0; cursor: pointer; }
+    .ref-nav button:hover { color: #1a1a1a; }
+    .ref-nav button:disabled { color: #ccc; cursor: default; }
+
     @media (max-width: 480px) {
       .field-row { flex-direction: column; gap: 0; }
       input, textarea, select { font-size: 16px; }
@@ -264,6 +271,14 @@
           <select id="reference_piece" name="reference_piece">
             <option value="" disabled selected></option>
           </select>
+          <div id="referencePiecePreview" class="ref-preview" style="display:none">
+            <img id="referencePieceImg" src="" alt="">
+            <div id="referencePieceNav" class="ref-nav">
+              <button type="button" id="refPrev">&#8592;</button>
+              <span id="referencePieceCount"></span>
+              <button type="button" id="refNext">&#8594;</button>
+            </div>
+          </div>
         </div>
         <p class="form-note" style="margin: -0.4rem 0 0.9rem;">i'll use this as a starting point — let me know any changes you'd like below</p>
       </div>
@@ -473,30 +488,70 @@
   <script>
     // Previous commissions list
     var previousCommissions = [
-      { year: "2026", text: "18k floral emerald engagement ring" },
-      { year: "2026", text: "platinum zinnia ring" },
-      { year: "2026", text: "set: platinum & 18k gold wedding bands, inlaid sapphires & diamonds" },
-      { year: "2026", text: "set: teardrop pendants with trillion cut diamonds (sterling silver, 18k gold)" },
-      { year: "2026", text: "18k emerald signet ring" },
-      { year: "2026", text: 'platinum “wave” ring' },
-      { year: "2026", text: 'platinum “wave” ring lite' },
-      { year: "2026", text: 'platinum “wave” ring with ruby' },
-      { year: "2026", text: 'set: 18k “frog” ring & 18k “panels” ring' },
-      { year: "2026", text: "sterling silver lostboys x bandit signet" },
-      { year: "2025", text: 'platinum “wink” ring with marquise & round cut diamonds' },
-      { year: "2025", text: "18k grey gold signet ring" },
-      { year: "2025", text: "chunky platinum engagement ring" },
-      { year: "2025", text: "set: platinum & 20k gold wedding bands, inlaid diamonds" },
-      { year: "2025", text: "platinum floral engagement ring" },
-      { year: "2024", text: "platinum cigar band with diamonds, peridots" },
+      { year: "2026", text: "18k floral emerald engagement ring",                                               images: "/images/commissions/18k-floral-emerald-engagement-ring/", count: 3 },
+      { year: "2026", text: "platinum zinnia ring",                                                             images: "/images/commissions/platinum-zinnia-ring/", count: 3 },
+      { year: "2026", text: "set: platinum & 18k gold wedding bands, inlaid sapphires & diamonds",             images: "/images/commissions/platinum-18k-gold-wedding-bands-sapphires-diamonds/", count: 3 },
+      { year: "2026", text: "set: teardrop pendants with trillion cut diamonds (sterling silver, 18k gold)",   images: "/images/commissions/teardrop-pendants-trillion-cut-diamonds/", count: 2 },
+      { year: "2026", text: "18k emerald signet ring",                                                         images: "/images/commissions/emerald-signet-ring/", count: 2 },
+      { year: "2026", text: 'platinum “wave” ring',                                                  images: "/images/commissions/platinum-wave-ring/", count: 2 },
+      { year: "2026", text: 'platinum “wave” ring lite',                                             images: "/images/commissions/platinum-wave-ring-lite/", count: 2 },
+      { year: "2026", text: 'platinum “wave” ring with ruby',                                        images: "/images/commissions/platinum-wave-ring-ruby/", count: 1 },
+      { year: "2026", text: 'set: 18k “frog” ring & 18k “panels” ring',                   images: "/images/commissions/frog-ring-panels-ring/", count: 4 },
+      { year: "2026", text: "sterling silver lostboys x bandit signet",                                        images: "/images/commissions/lost-boys-htc/", count: 4 },
+      { year: "2025", text: 'platinum “wink” ring with marquise & round cut diamonds',               images: "/images/commissions/platinum-wink-ring/", count: 1 },
+      { year: "2025", text: "18k grey gold signet ring",                                                       images: "/images/commissions/18k-grey-gold-signet-ring/", count: 4 },
+      { year: "2025", text: "chunky platinum engagement ring",                                                  images: "/images/commissions/chunky-platinum-engagement-ring/", count: 3 },
+      { year: "2025", text: "set: platinum & 20k gold wedding bands, inlaid diamonds",                         images: "/images/commissions/platinum-20k-gold-wedding-bands-diamonds/", count: 4 },
+      { year: "2025", text: "platinum floral engagement ring",                                                  images: "/images/commissions/platinum-floral-engagement-ring/", count: 4 },
+      { year: "2024", text: "platinum cigar band with diamonds, peridots",                                      images: "/images/commissions/platinum-cigar-band-diamonds-peridots/", count: 4 },
     ];
 
-    var refSelect = document.getElementById('reference_piece');
-    previousCommissions.forEach(function(c) {
+    var refSelect  = document.getElementById('reference_piece');
+    var refPreview = document.getElementById('referencePiecePreview');
+    var refImg     = document.getElementById('referencePieceImg');
+    var refNav     = document.getElementById('referencePieceNav');
+    var refCounter = document.getElementById('referencePieceCount');
+    var currentRef = null;
+    var refIndex   = 0;
+
+    previousCommissions.forEach(function(c, i) {
       var opt = document.createElement('option');
-      opt.value = c.year + ' — ' + c.text;
+      opt.value = i;
       opt.textContent = c.year + '  —  ' + c.text;
       refSelect.appendChild(opt);
+    });
+
+    function showRefImage(c, idx) {
+      refImg.src = c.images + (idx + 1) + '.jpg';
+      refImg.alt = c.text;
+      refCounter.textContent = (idx + 1) + ' / ' + c.count;
+      refNav.style.display = c.count > 1 ? '' : 'none';
+      document.getElementById('refPrev').disabled = idx === 0;
+      document.getElementById('refNext').disabled = idx === c.count - 1;
+    }
+
+    var refLabelInput = document.createElement('input');
+    refLabelInput.type = 'hidden';
+    refLabelInput.name = 'reference_piece_label';
+    refSelect.parentNode.appendChild(refLabelInput);
+
+    refSelect.addEventListener('change', function() {
+      var i = parseInt(this.value);
+      if (isNaN(i)) { refPreview.style.display = 'none'; refLabelInput.value = ''; return; }
+      currentRef = previousCommissions[i];
+      refLabelInput.value = currentRef.year + ' — ' + currentRef.text;
+      refIndex = 0;
+      refPreview.style.display = '';
+      showRefImage(currentRef, refIndex);
+    });
+
+    document.getElementById('refPrev').addEventListener('click', function() {
+      if (!currentRef || refIndex <= 0) return;
+      showRefImage(currentRef, --refIndex);
+    });
+    document.getElementById('refNext').addEventListener('click', function() {
+      if (!currentRef || refIndex >= currentRef.count - 1) return;
+      showRefImage(currentRef, ++refIndex);
     });
 
     var requestTypeSelect        = document.getElementById('request_type');
