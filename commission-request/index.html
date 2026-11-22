@@ -492,10 +492,13 @@
     var previousCommissionField  = document.getElementById('previousCommissionField');
     var pieceDetailFields        = document.getElementById('pieceDetailFields');
 
+    var pieceTypeField = document.getElementById('piece_type').closest('.field');
+
     requestTypeSelect.addEventListener('change', function() {
       var isPrevious = this.value === 'previous';
       previousCommissionField.style.display = isPrevious ? '' : 'none';
       pieceDetailFields.style.display = '';
+      pieceTypeField.style.display = isPrevious ? 'none' : '';
     });
 
     // Generic "other" text reveal for any select with data-other
@@ -522,6 +525,9 @@
 
     var ringSizeSystem = document.getElementById('ring_size_system');
     var ringSizeValue  = document.getElementById('ringSizeValue');
+
+    ringSizeSystem.value = 'us';
+    ringSizeSystem.dispatchEvent(new Event('change'));
 
     ringSizeSystem.addEventListener('change', function() {
       var v = this.value;
