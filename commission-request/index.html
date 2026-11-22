@@ -205,7 +205,7 @@
       <div class="field-row">
         <div class="field">
           <label for="piece_type">type of piece</label>
-          <select id="piece_type" name="piece_type" required>
+          <select id="piece_type" name="piece_type" required data-other="piece_type_other" data-other-placeholder="please describe">
             <option value="" disabled selected></option>
             <option>ring</option>
             <option>necklace</option>
@@ -216,7 +216,7 @@
         </div>
         <div class="field">
           <label for="occasion">occasion</label>
-          <select id="occasion" name="occasion">
+          <select id="occasion" name="occasion" data-other="occasion_other" data-other-placeholder="please describe">
             <option value="" disabled selected></option>
             <option>engagement</option>
             <option>wedding band</option>
@@ -252,7 +252,7 @@
 
       <div class="field">
         <label for="stone_type">preferred stone <span class="hint">if any</span></label>
-        <select id="stone_type" name="stone_type">
+        <select id="stone_type" name="stone_type" data-other="stone_type_other" data-other-placeholder="e.g. alexandrite, tourmaline, opal">
           <option value="" disabled selected></option>
           <option value="none">none</option>
           <option value="diamond">diamond</option>
@@ -262,9 +262,6 @@
           <option value="other">other</option>
           <option value="not sure">not sure</option>
         </select>
-        <div id="stoneOtherInline" style="display:none; margin-top:0.5rem;">
-          <input type="text" id="stone_other_inline" name="stone_type_other" placeholder="e.g. alexandrite, tourmaline, opal" style="width:100%">
-        </div>
       </div>
 
       <div id="stoneDetails" style="display:none">
@@ -386,12 +383,25 @@
   </footer>
 
   <script>
+    // Generic "other" text reveal for any select with data-other
+    document.querySelectorAll('select[data-other]').forEach(function(sel) {
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.name = sel.dataset.other;
+      input.placeholder = sel.dataset.otherPlaceholder || '';
+      input.style.cssText = 'display:none;margin-top:0.5rem;width:100%';
+      sel.parentNode.insertBefore(input, sel.nextSibling);
+      sel.addEventListener('change', function() {
+        input.style.display = this.value === 'other' ? '' : 'none';
+        if (this.value !== 'other') input.value = '';
+      });
+    });
+
     // Stone detail visibility
     var stoneSelect        = document.getElementById('stone_type');
     var stoneDetails       = document.getElementById('stoneDetails');
     var stoneColorField    = document.getElementById('stoneColorField');
     var stoneDiamondFields = document.getElementById('stoneDiamondFields');
-    var stoneOtherInline   = document.getElementById('stoneOtherInline');
 
     stoneSelect.addEventListener('change', function() {
       var v = this.value;
@@ -399,7 +409,6 @@
       stoneDetails.style.display        = hasStone ? '' : 'none';
       stoneColorField.style.display     = (hasStone && v !== 'diamond' && v !== 'other' && v !== 'not sure') ? '' : 'none';
       stoneDiamondFields.style.display  = (v === 'diamond') ? '' : 'none';
-      stoneOtherInline.style.display    = (v === 'other') ? '' : 'none';
     });
 
     var form = document.getElementById('commissionForm');
