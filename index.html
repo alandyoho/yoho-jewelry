@@ -383,64 +383,55 @@
   };
 
 
-  // ── Pixelation reveal animation ───────
-  function makePixelated(img, dispW, dispH, blockSize) {
-    var sw = Math.max(1, Math.ceil(dispW / blockSize));
-    var sh = Math.max(1, Math.ceil(dispH / blockSize));
-    var tiny = document.createElement('canvas');
-    tiny.width = sw; tiny.height = sh;
-    tiny.getContext('2d').drawImage(img, 0, 0, sw, sh);
-    var full = document.createElement('canvas');
-    full.width = dispW; full.height = dispH;
-    var fc = full.getContext('2d');
-    fc.imageSmoothingEnabled = false;
-    fc.drawImage(tiny, 0, 0, dispW, dispH);
-    return full;
-  }
-
-  function revealImage(img) {
-    function doReveal() {
-      var w = img.offsetWidth, h = img.offsetHeight;
-      if (!w || !h) return;
-      var old = img.parentElement.querySelector('canvas.img-reveal');
-      if (old) { old._cancel = true; old.remove(); }
-      var blockSizes = [24, 12, 6, 3];
-      var levels = blockSizes.map(function(bs) { return makePixelated(img, w, h, bs); });
-      var canvas = document.createElement('canvas');
-      canvas.className = 'img-reveal';
-      canvas.width = w; canvas.height = h;
-      canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;';
-      var parent = img.parentElement;
-      if (getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
-      parent.appendChild(canvas);
-      var ctx = canvas.getContext('2d');
-      var duration = 1500, start = null, transW = w * 0.3, n = levels.length;
-      function frame(ts) {
-        if (canvas._cancel) return;
-        if (!start) start = ts;
-        var t = Math.min((ts - start) / duration, 1);
-        var sweepX = t * w;
-        ctx.clearRect(0, 0, w, h);
-        ctx.drawImage(levels[0], 0, 0);
-        for (var i = 1; i < n; i++) {
-          var zl = sweepX + ((n - i - 1) / n) * transW;
-          var zr = sweepX + ((n - i) / n) * transW;
-          if (zr <= 0) continue;
-          ctx.save();
-          ctx.beginPath();
-          ctx.rect(Math.max(0, zl), 0, Math.min(w, zr) - Math.max(0, zl), h);
-          ctx.clip();
-          ctx.drawImage(levels[i], 0, 0);
-          ctx.restore();
-        }
-        if (sweepX > 0) ctx.clearRect(0, 0, Math.min(sweepX, w), h);
-        if (t < 1) requestAnimationFrame(frame);
-        else canvas.remove();
-      }
-      requestAnimationFrame(frame);
+  // ── Skeleton screen ───────────────────
+  function skeletonLoad(img) {
+    if (img.complete && img.naturalWidth) return;
+    var old = img.parentElement && img.parentElement.querySelector('canvas.img-skeleton');
+    if (old) { cancelAnimationFrame(old._raf); old.remove(); }
+    var canvas = document.createElement('canvas');
+    canvas.className = 'img-skeleton';
+    canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;';
+    var parent = img.parentElement;
+    if (parent && getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
+    if (parent) parent.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+    var startTime = null;
+    function perimPt(d, pw, ph) {
+      var p = 2 * (pw + ph); d = ((d % p) + p) % p;
+      if (d <= pw) return [d, 0];
+      d -= pw; if (d <= ph) return [pw, d];
+      d -= ph; if (d <= pw) return [pw - d, ph];
+      return [0, ph - (d - pw)];
     }
-    if (img.complete && img.naturalWidth) doReveal();
-    else img.addEventListener('load', doReveal, { once: true });
+    function draw(ts) {
+      if (!startTime) startTime = ts;
+      var w = img.offsetWidth, h = img.offsetHeight;
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      if (!w || !h) { canvas._raf = requestAnimationFrame(draw); return; }
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#f5f5f5';
+      ctx.fillRect(0, 0, w, h);
+      var elapsed = (ts - startTime) / 1000;
+      var speed = (w + h); // px/s — one lap every 2s
+      var head = elapsed * speed;
+      var trail = 14, spacing = 5;
+      for (var i = trail; i >= 0; i--) {
+        var pt = perimPt(head - i * spacing, w - 2, h - 2);
+        var alpha = Math.pow((trail - i) / trail, 1.2) * 0.65;
+        ctx.fillStyle = 'rgba(26,26,26,' + alpha.toFixed(2) + ')';
+        ctx.fillRect(Math.round(pt[0]), Math.round(pt[1]), 2, 2);
+      }
+      canvas._raf = requestAnimationFrame(draw);
+    }
+    function stop() {
+      cancelAnimationFrame(canvas._raf);
+      canvas.style.transition = 'opacity 0.2s';
+      canvas.style.opacity = '0';
+      setTimeout(function() { canvas.remove(); }, 200);
+    }
+    img.addEventListener('load',  stop, { once: true });
+    img.addEventListener('error', function() { cancelAnimationFrame(canvas._raf); canvas.remove(); }, { once: true });
+    canvas._raf = requestAnimationFrame(draw);
   }
 
   // ── Carousel ──────────────────────────
@@ -490,7 +481,7 @@
       goTo(next_index);
     });
     carousel.appendChild(img);
-    revealImage(img);
+    skeletonLoad(img);
 
     var nav = document.createElement('div');
     nav.className = 'carousel-nav';
@@ -510,7 +501,7 @@
     function goTo(i) {
       index = i;
       img.src = imageDir + (i + 1) + '.jpg';
-      revealImage(img);
+      skeletonLoad(img);
       countLabel.textContent = (i + 1) + ' / ' + count;
       prev.disabled = i === 0;
       next.disabled = i === count - 1;
