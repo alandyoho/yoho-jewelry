@@ -432,6 +432,12 @@
         <textarea id="designs" name="designs_you_like" rows="4" placeholder="describe, or share instagram / pinterest links — the more the better"></textarea>
       </div>
 
+      <div class="field">
+        <label>reference photos <span class="hint">optional — inspiration, sketches, reference images</span></label>
+        <label id="uploadLabel" for="photos" style="display:inline-block;margin-top:0.25rem;font-size:0.82rem;color:#0055bb;border:1px solid #0055bb;border-radius:2px;padding:3px 12px;cursor:pointer;">choose files</label>
+        <input type="file" id="photos" name="photos" multiple accept="image/*" style="position:absolute;left:-9999px;" tabindex="-1">
+        <div id="photoFileList" style="font-size:0.78rem;color:#888;margin-top:0.3rem;"></div>
+      </div>
 
       <div class="field">
         <label for="avoid">anything you'd like to avoid <span class="hint">optional</span></label>
@@ -798,6 +804,12 @@
       form.style.display = '';
       btn.disabled = false;
       btn.textContent = 'submit';
+    });
+
+    document.getElementById('photos').addEventListener('change', function() {
+      var list = document.getElementById('photoFileList');
+      if (!this.files.length) { list.textContent = ''; return; }
+      list.textContent = Array.from(this.files).map(function(f) { return f.name; }).join(', ');
     });
 
     var validationMsg = document.getElementById('validationMsg');

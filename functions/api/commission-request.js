@@ -64,20 +64,34 @@ export async function onRequestPost(context) {
     .join('\n');
 
 
+  const photoFiles = formData.getAll('photos').filter(f => f && f.size > 0);
+  const attachments = await Promise.all(
+    photoFiles.map(async (file) => {
+      const buf = await file.arrayBuffer();
+      const bytes = new Uint8Array(buf);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+      return { filename: file.name, content: btoa(binary) };
+    })
+  );
+
+  const payload = {
+    from: 'commission-request@yoho.jewelry',
+    to: 'alan@yoho.jewelry',
+    cc: [email],
+    reply_to: email,
+    subject: `commission request from ${name}`,
+    text: lines,
+  };
+  if (attachments.length) payload.attachments = attachments;
+
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${env.RESEND_API_KEY}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      from: 'commission-request@yoho.jewelry',
-      to: 'alan@yoho.jewelry',
-      cc: [email],
-      reply_to: email,
-      subject: `commission request from ${name}`,
-      text: lines,
-    }),
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {
