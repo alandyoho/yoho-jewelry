@@ -171,8 +171,46 @@
     .ref-preview .carousel-nav button:disabled { color: #ccc; cursor: default; }
     .ref-preview .carousel-count { font-size: 0.78rem; color: #888; }
 
+    .photo-preview-list {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      overflow-x: auto;
+      margin-top: 0.75rem;
+    }
+    .photo-preview-item {
+      flex: 0 0 180px;
+      display: flex;
+      flex-direction: column;
+    }
+    .photo-preview-item img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-preview-item label { display: block; font-size: 0.78rem; color: #1a1a1a; margin: 0.4rem 0 0.25rem; }
+    .photo-preview-item textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 16px;
+      color: #1a1a1a;
+      background: none;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      border-radius: 0;
+      padding: 0.3rem 0;
+      outline: none;
+      resize: vertical;
+      line-height: 1.5;
+      min-height: 48px;
+    }
+
     @media (max-width: 480px) {
       .field-row { flex-direction: column; gap: 0; }
+      .photo-preview-list { flex-direction: column; overflow-x: visible; }
+      .photo-preview-item { flex: none; width: 100%; }
+      .photo-preview-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
     }
   </style>
 </head>
@@ -437,7 +475,7 @@
         <label id="uploadLabel" for="photos" style="display:inline-block;margin-top:0.25rem;font-size:0.82rem;color:#0055bb;border:1px solid #0055bb;border-radius:2px;padding:3px 12px;cursor:pointer;">choose files</label>
         <input type="file" id="photos" name="photos" multiple accept="image/*" style="position:absolute;left:-9999px;" tabindex="-1">
         <div id="photoFileList" style="font-size:0.78rem;color:#888;margin-top:0.3rem;"></div>
-        <div id="photoPreviewList" style="margin-top:0.75rem;"></div>
+        <div id="photoPreviewList" class="photo-preview-list" style="display:none;"></div>
       </div>
 
       <div class="field">
@@ -802,45 +840,71 @@
       requestTypeSelect.dispatchEvent(new Event('change'));
       msg.style.display = 'none';
       validationMsg.style.display = 'none';
+      allPhotoFiles = [];
+      photoObjectURLs.forEach(function(u) { URL.revokeObjectURL(u); });
+      photoObjectURLs = [];
+      renderPhotoPreviews();
       form.style.display = '';
       btn.disabled = false;
       btn.textContent = 'submit';
     });
 
-    document.getElementById('photos').addEventListener('change', function() {
+    var photosInput = document.getElementById('photos');
+    var allPhotoFiles = [];
+    var photoObjectURLs = [];
+
+    function renderPhotoPreviews() {
       var list     = document.getElementById('photoFileList');
       var previews = document.getElementById('photoPreviewList');
+
+      // Save existing note values before clearing
+      var savedNotes = {};
+      previews.querySelectorAll('textarea').forEach(function(ta) { savedNotes[ta.name] = ta.value; });
       previews.innerHTML = '';
 
-      if (!this.files.length) { list.textContent = ''; return; }
-      list.textContent = Array.from(this.files).map(function(f) { return f.name; }).join(', ');
+      if (!allPhotoFiles.length) {
+        list.textContent = '';
+        previews.style.display = 'none';
+        return;
+      }
 
-      Array.from(this.files).forEach(function(file, i) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var wrap = document.createElement('div');
-          wrap.style.cssText = 'margin-bottom:1.2rem;';
+      list.textContent = allPhotoFiles.map(function(f) { return f.name; }).join(', ');
+      previews.style.display = '';
 
-          var img = document.createElement('img');
-          img.src = e.target.result;
-          img.style.cssText = 'width:50%;display:block;aspect-ratio:1/1;object-fit:cover;';
+      allPhotoFiles.forEach(function(file, i) {
+        if (!photoObjectURLs[i]) photoObjectURLs[i] = URL.createObjectURL(file);
 
-          var lbl = document.createElement('label');
-          lbl.style.cssText = 'display:block;font-size:0.78rem;color:#1a1a1a;margin:0.5rem 0 0.25rem;';
-          lbl.textContent = 'what do you like about this piece?';
+        var item = document.createElement('div');
+        item.className = 'photo-preview-item';
 
-          var ta = document.createElement('textarea');
-          ta.name = 'photo_note_' + i;
-          ta.rows = 2;
-          ta.style.cssText = 'width:100%;font-family:inherit;font-size:16px;color:#1a1a1a;background:none;border:none;border-bottom:1px solid #ccc;border-radius:0;padding:0.3rem 0;outline:none;resize:vertical;line-height:1.5;';
+        var img = document.createElement('img');
+        img.src = photoObjectURLs[i];
+        img.alt = file.name;
 
-          wrap.appendChild(img);
-          wrap.appendChild(lbl);
-          wrap.appendChild(ta);
-          previews.appendChild(wrap);
-        };
-        reader.readAsDataURL(file);
+        var lbl = document.createElement('label');
+        lbl.textContent = 'what do you like about this piece?';
+
+        var ta = document.createElement('textarea');
+        ta.name = 'photo_note_' + i;
+        ta.rows = 2;
+        ta.value = savedNotes['photo_note_' + i] || '';
+
+        item.appendChild(img);
+        item.appendChild(lbl);
+        item.appendChild(ta);
+        previews.appendChild(item);
       });
+    }
+
+    photosInput.addEventListener('change', function() {
+      Array.from(this.files).forEach(function(f) { allPhotoFiles.push(f); });
+
+      // Update the input's FileList so FormData picks up all files
+      var dt = new DataTransfer();
+      allPhotoFiles.forEach(function(f) { dt.items.add(f); });
+      photosInput.files = dt.files;
+
+      renderPhotoPreviews();
     });
 
     var validationMsg = document.getElementById('validationMsg');
