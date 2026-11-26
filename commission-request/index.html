@@ -877,9 +877,29 @@
         var item = document.createElement('div');
         item.className = 'photo-preview-item';
 
+        var imgWrap = document.createElement('div');
+        imgWrap.style.cssText = 'position:relative;';
+
         var img = document.createElement('img');
         img.src = photoObjectURLs[i];
         img.alt = file.name;
+
+        var del = document.createElement('button');
+        del.type = 'button';
+        del.textContent = '×';
+        del.style.cssText = 'position:absolute;top:4px;right:4px;width:20px;height:20px;line-height:18px;text-align:center;font-size:14px;font-family:inherit;background:rgba(255,255,255,0.85);border:none;border-radius:1px;cursor:pointer;padding:0;color:#1a1a1a;';
+        del.addEventListener('click', function() {
+          URL.revokeObjectURL(photoObjectURLs[i]);
+          allPhotoFiles.splice(i, 1);
+          photoObjectURLs.splice(i, 1);
+          var dt = new DataTransfer();
+          allPhotoFiles.forEach(function(f) { dt.items.add(f); });
+          photosInput.files = dt.files;
+          renderPhotoPreviews();
+        });
+
+        imgWrap.appendChild(img);
+        imgWrap.appendChild(del);
 
         var lbl = document.createElement('label');
         lbl.textContent = 'what do you like about this piece?';
@@ -889,7 +909,7 @@
         ta.rows = 2;
         ta.value = savedNotes['photo_note_' + i] || '';
 
-        item.appendChild(img);
+        item.appendChild(imgWrap);
         item.appendChild(lbl);
         item.appendChild(ta);
         previews.appendChild(item);
