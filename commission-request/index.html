@@ -437,6 +437,7 @@
         <label id="uploadLabel" for="photos" style="display:inline-block;margin-top:0.25rem;font-size:0.82rem;color:#0055bb;border:1px solid #0055bb;border-radius:2px;padding:3px 12px;cursor:pointer;">choose files</label>
         <input type="file" id="photos" name="photos" multiple accept="image/*" style="position:absolute;left:-9999px;" tabindex="-1">
         <div id="photoFileList" style="font-size:0.78rem;color:#888;margin-top:0.3rem;"></div>
+        <div id="photoPreviewList" style="margin-top:0.75rem;"></div>
       </div>
 
       <div class="field">
@@ -807,9 +808,39 @@
     });
 
     document.getElementById('photos').addEventListener('change', function() {
-      var list = document.getElementById('photoFileList');
+      var list     = document.getElementById('photoFileList');
+      var previews = document.getElementById('photoPreviewList');
+      previews.innerHTML = '';
+
       if (!this.files.length) { list.textContent = ''; return; }
       list.textContent = Array.from(this.files).map(function(f) { return f.name; }).join(', ');
+
+      Array.from(this.files).forEach(function(file, i) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var wrap = document.createElement('div');
+          wrap.style.cssText = 'margin-bottom:1.2rem;';
+
+          var img = document.createElement('img');
+          img.src = e.target.result;
+          img.style.cssText = 'width:50%;display:block;aspect-ratio:1/1;object-fit:cover;';
+
+          var lbl = document.createElement('label');
+          lbl.style.cssText = 'display:block;font-size:0.78rem;color:#1a1a1a;margin:0.5rem 0 0.25rem;';
+          lbl.textContent = 'what do you like about this piece?';
+
+          var ta = document.createElement('textarea');
+          ta.name = 'photo_note_' + i;
+          ta.rows = 2;
+          ta.style.cssText = 'width:100%;font-family:inherit;font-size:16px;color:#1a1a1a;background:none;border:none;border-bottom:1px solid #ccc;border-radius:0;padding:0.3rem 0;outline:none;resize:vertical;line-height:1.5;';
+
+          wrap.appendChild(img);
+          wrap.appendChild(lbl);
+          wrap.appendChild(ta);
+          previews.appendChild(wrap);
+        };
+        reader.readAsDataURL(file);
+      });
     });
 
     var validationMsg = document.getElementById('validationMsg');

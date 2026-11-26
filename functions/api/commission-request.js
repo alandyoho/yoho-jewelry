@@ -75,13 +75,19 @@ export async function onRequestPost(context) {
     })
   );
 
+  const photoNotes = photoFiles.map((file, i) => {
+    const note = formData.get(`photo_note_${i}`)?.trim();
+    return note ? `${file.name}: ${note}` : null;
+  }).filter(Boolean);
+  const photoSection = photoNotes.length ? '\n\nphoto notes:\n' + photoNotes.join('\n') : '';
+
   const payload = {
     from: 'commission-request@yoho.jewelry',
     to: 'alan@yoho.jewelry',
     cc: [email],
     reply_to: email,
     subject: `commission request from ${name}`,
-    text: lines,
+    text: lines + photoSection,
   };
   if (attachments.length) payload.attachments = attachments;
 
