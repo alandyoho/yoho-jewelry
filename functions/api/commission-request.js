@@ -68,6 +68,7 @@ export async function onRequestPost(context) {
     body: JSON.stringify({
       from: 'commission-request@yoho.jewelry',
       to: 'alan@yoho.jewelry',
+      cc: [email],
       reply_to: email,
       subject: `commission request from ${name}`,
       text: lines,
