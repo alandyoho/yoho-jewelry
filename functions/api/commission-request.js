@@ -3,6 +3,11 @@ export async function onRequestPost(context) {
 
   const formData = await request.formData();
 
+  // Honeypot — bots fill this, humans don't see it
+  if (formData.get('website')) {
+    return new Response(JSON.stringify({ ok: true }), { headers: { 'Content-Type': 'application/json' } });
+  }
+
   const name  = formData.get('name')?.trim();
   const email = formData.get('email')?.trim();
 
